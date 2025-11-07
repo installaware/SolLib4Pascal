@@ -1,0 +1,46 @@
+# -------------------------------------------------------------
+# Global settings — ensure consistent LF endings on all systems
+# -------------------------------------------------------------
+* text=auto eol=lf
+
+# Delphi / Object Pascal source files
+*.pas text eol=lf
+*.dpr text eol=lf
+*.dpk text eol=lf
+*.inc text eol=lf
+
+# Form and resource files
+*.dfm text eol=lf
+*.fmx text eol=lf
+*.xfm text eol=lf
+*.nfm text eol=lf
+*.res binary
+*.rc text eol=lf
+
+# Project and configuration files
+*.dproj text eol=lf
+*.groupproj text eol=lf
+*.bdsgroup text eol=lf
+*.bdsproj text eol=lf
+*.identcache binary
+*.local binary
+*.dcu binary
+
+# Common text files
+*.txt text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+
+# Ignore common binaries
+*.exe binary
+*.dll binary
+*.so binary
+*.a binary
+*.lib binary
+*.obj binary
+*.o binary

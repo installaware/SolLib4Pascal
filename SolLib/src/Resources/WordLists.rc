@@ -1,0 +1,8 @@
+BIP39_CHINESE_SIMPLIFIED_WORDLIST   RCDATA "WordLists/Bip39/Chinese_Simplified.txt"
+BIP39_CHINESE_TRADITIONAL_WORDLIST  RCDATA "WordLists/Bip39/Chinese_Traditional.txt"
+BIP39_CZECH_WORDLIST                RCDATA "WordLists/Bip39/Czech.txt"
+BIP39_ENGLISH_WORDLIST              RCDATA "WordLists/Bip39/English.txt"
+BIP39_FRENCH_WORDLIST               RCDATA "WordLists/Bip39/French.txt"
+BIP39_JAPANESE_WORDLIST             RCDATA "WordLists/Bip39/Japanese.txt"
+BIP39_PORTUGUESE_BRAZIL_WORDLIST    RCDATA "WordLists/Bip39/Portuguese_Brazil.txt"
+BIP39_SPANISH_WORDLIST              RCDATA "WordLists/Bip39/Spanish.txt"
