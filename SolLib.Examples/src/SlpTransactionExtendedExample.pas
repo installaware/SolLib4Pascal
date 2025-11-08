@@ -333,7 +333,6 @@ begin
         LOwner.PublicKey
       )
     )
-     ////
     .AddInstruction(
       TSystemProgram.CreateAccount(
         LOwner.PublicKey,
