@@ -21,10 +21,15 @@ Whether you’re a seasoned developer or just getting started, **SolLib** provid
 - Programs
     - Native Programs
       - System Program
+    - Loader Programs
+      - BPF Loader Program
     - Solana Program Library (SPL)
       - Compute Budget Program
+      - Address Lookup Table Program
       - Memo Program
       - Token Program
+      - Associated Token Account Program
+      - Shared Memory Program
 
 
 ## Supported Compilers

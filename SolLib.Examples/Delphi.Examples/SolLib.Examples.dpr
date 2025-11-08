@@ -122,6 +122,7 @@ uses
   SlpAssociatedTokenAccountProgram in '..\..\SolLib.Programs\src\SlpAssociatedTokenAccountProgram.pas',
   SlpMemoProgram in '..\..\SolLib.Programs\src\SlpMemoProgram.pas',
   SlpComputeBudgetProgram in '..\..\SolLib.Programs\src\SlpComputeBudgetProgram.pas',
+  SlpSharedMemoryProgram in '..\..\SolLib.Programs\src\SlpSharedMemoryProgram.pas',
   SlpExampleExplorer in '..\src\SlpExampleExplorer.pas',
   SlpInstructionDecoderExample in '..\src\SlpInstructionDecoderExample.pas',
   SlpGetTokenAccountsByOwnerExample in '..\src\SlpGetTokenAccountsByOwnerExample.pas',

@@ -36,6 +36,7 @@ uses
   SlpTokenProgram,
   SlpToken2022Program,
   SlpAssociatedTokenAccountProgram,
+  SlpSharedMemoryProgram,
   SlpComputeBudgetProgram;
 
 type
@@ -133,6 +134,9 @@ begin
 
   // Associated Token Account
   FInstructionDictionary.Add(TAssociatedTokenAccountProgram.ProgramIdKey.Key, TAssociatedTokenAccountProgram.Decode);
+
+  // Shared Memory Program
+  FInstructionDictionary.Add(TSharedMemoryProgram.ProgramIdKey.Key, TSharedMemoryProgram.Decode);
 
   // Compute Budget
   FInstructionDictionary.Add(TComputeBudgetProgram.ProgramIdKey.Key, TComputeBudgetProgram.Decode);

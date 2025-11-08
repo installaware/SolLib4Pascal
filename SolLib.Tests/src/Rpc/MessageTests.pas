@@ -20,7 +20,6 @@ interface
 
 uses
   System.SysUtils,
-
   System.Generics.Collections,
 {$IFDEF FPC}
   testregistry,
@@ -30,7 +29,6 @@ uses
   SlpPublicKey,
   SlpMessageDomain,
   SlpTransactionInstruction,
-
   SolLibTestCase;
 
 type

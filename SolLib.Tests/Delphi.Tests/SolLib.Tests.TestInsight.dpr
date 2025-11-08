@@ -148,6 +148,7 @@ uses
   MessageTests in '..\src\Rpc\MessageTests.pas',
   ClientFactoryTests in '..\src\Rpc\ClientFactoryTests.pas',
   TransactionTests in '..\src\Rpc\TransactionTests.pas',
+  ShortVectorEncodingTests in '..\src\Rpc\ShortVectorEncodingTests.pas',
   AccountTests in '..\src\Wallet\AccountTests.pas',
   Base58Tests in '..\src\Wallet\Base58Tests.pas',
   Bip39Tests in '..\src\Wallet\Bip39Tests.pas',

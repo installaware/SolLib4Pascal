@@ -36,9 +36,9 @@ uses
 type
   TAssociatedTokenAccountProgramTests = class(TSolLibProgramTestCase)
   private
+
     class function ProgramIdBytes: TBytes; static;
     class function EmptyBytes: TBytes; static;
-    class function MnemonicWords: string; static;
   published
     procedure TestCreateAssociatedTokenAccount;
   end;
@@ -46,13 +46,6 @@ type
 implementation
 
 { TAssociatedTokenAccountProgramTests }
-
-class function TAssociatedTokenAccountProgramTests.MnemonicWords: string;
-begin
-  Result :=
-    'route clerk disease box emerge airport loud waste attitude film army tray ' +
-    'forward deal onion eight catalog surface unit card window walnut wealth medal';
-end;
 
 class function TAssociatedTokenAccountProgramTests.ProgramIdBytes: TBytes;
 begin
@@ -69,6 +62,10 @@ begin
 end;
 
 procedure TAssociatedTokenAccountProgramTests.TestCreateAssociatedTokenAccount;
+const
+  MnemonicWords =
+    'route clerk disease box emerge airport loud waste attitude film army tray ' +
+    'forward deal onion eight catalog surface unit card window walnut wealth medal';
 var
   LWallet       : IWallet;
   LOwnerAccount : IAccount;

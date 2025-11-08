@@ -121,6 +121,12 @@ var
   LKeys: TList<IAccountMeta>;
   LMemoBytes: TBytes;
 begin
+  if AMemo = '' then
+    raise EArgumentNilException.Create('AMemo');
+
+  if not Assigned(AAccount) then
+    raise EArgumentNilException.Create('AAccount');
+
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(AAccount, True));
 
@@ -136,6 +142,9 @@ var
   LKeys: TList<IAccountMeta>;
   LMemoBytes: TBytes;
 begin
+  if AMemo = '' then
+    raise EArgumentNilException.Create('AMemo');
+
   LKeys := TList<IAccountMeta>.Create;
   if AAccount <> nil then
     LKeys.Add(TAccountMeta.ReadOnly(AAccount, True));

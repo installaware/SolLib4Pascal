@@ -128,6 +128,9 @@ uses
   SlpAssociatedTokenAccountProgram in '..\..\SolLib.Programs\src\SlpAssociatedTokenAccountProgram.pas',
   SlpMemoProgram in '..\..\SolLib.Programs\src\SlpMemoProgram.pas',
   SlpComputeBudgetProgram in '..\..\SolLib.Programs\src\SlpComputeBudgetProgram.pas',
+  SlpSharedMemoryProgram in '..\..\SolLib.Programs\src\SlpSharedMemoryProgram.pas',
+  SlpAddressLookupTableProgram in '..\..\SolLib.Programs\src\SlpAddressLookupTableProgram.pas',
+  SlpBPFLoaderProgram in '..\..\SolLib.Programs\src\SlpBPFLoaderProgram.pas',
   TestUtils in '..\src\Misc\TestUtils.pas',
   RpcClientMocks in '..\src\Misc\RpcClientMocks.pas',
   JsonStructuralComparer in '..\src\Misc\JsonStructuralComparer.pas',
@@ -139,11 +142,15 @@ uses
   SerializationUtilitiesTests in '..\src\Program\SerializationUtilitiesTests.pas',
   DeserializationUtilitiesTests in '..\src\Program\DeserializationUtilitiesTests.pas',
   FlagTests in '..\src\Program\FlagTests.pas',
+  MemoProgramTests in '..\src\Program\MemoProgramTests.pas',
   AssociatedTokenAccountProgramTests in '..\src\Program\AssociatedTokenAccountProgramTests.pas',
   TokenProgramTests in '..\src\Program\TokenProgramTests.pas',
   SystemProgramTests in '..\src\Program\SystemProgramTests.pas',
   InstructionDecoderTests in '..\src\Program\InstructionDecoderTests.pas',
-  ComputeBudgetProgramTests in '..\src\Program\ComputeBudgetProgramTests.pas';
+  ComputeBudgetProgramTests in '..\src\Program\ComputeBudgetProgramTests.pas',
+  SharedMemoryProgramTests in '..\src\Program\SharedMemoryProgramTests.pas',
+  AddressLookupTableProgramTests in '..\src\Program\AddressLookupTableProgramTests.pas',
+  BPFLoaderProgramTests in '..\src\Program\BPFLoaderProgramTests.pas';
 
 begin
 
