@@ -327,7 +327,7 @@ begin
   LUnitsConsumed := SimulateUnitsConsumed(ARpc, ADraftTransactionBytes);
 
   // 2) Requested (billable) limit = used + ceil(used * safetyMargin)
-  LComputeUnitLimit := LUnitsConsumed + Ceil(LUnitsConsumed * ASafetyMargin);
+  LComputeUnitLimit := LUnitsConsumed + UInt64(Ceil(LUnitsConsumed * ASafetyMargin));
 
   // 3) Fetch recent fees (throws if RPC failed)
   LFees := FetchRecentPrioritizationFees(ARpc, AFeeHintAccounts);
@@ -385,7 +385,7 @@ begin
   LUnitsConsumed := SimulateUnitsConsumed(ARpc, ADraftTransactionBytes);
 
   // 2) Compute requested/billable CU limit with headroom
-  LComputeUnitLimit := LUnitsConsumed + Ceil(LUnitsConsumed * ASafetyMargin);
+  LComputeUnitLimit := LUnitsConsumed + UInt64(Ceil(LUnitsConsumed * ASafetyMargin));
   LComputeUnitLimit := RoundUpToStep(LComputeUnitLimit, AComputeUnitStep);
   LComputeUnitLimit := EnsureRange(LComputeUnitLimit, AMinComputeUnitLimit, AMaxComputeUnitLimit);
 

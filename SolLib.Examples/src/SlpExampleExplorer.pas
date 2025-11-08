@@ -49,8 +49,8 @@ var
   Obj        : TObject;
   Example    : IExample;
 
-function GetParameterlessConstructor(const AType: TRttiInstanceType): TRttiMethod;
-var
+function GetParameterlessConstructor(const AType: TRttiInstanceType): TRttiMethod;
+var
   M: TRttiMethod;
   C: TClass;
 begin

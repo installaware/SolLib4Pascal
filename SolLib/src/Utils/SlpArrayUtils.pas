@@ -1,4 +1,4 @@
-﻿{ ****************************************************************************** }
+{ ****************************************************************************** }
 { *                            SolLib Library                                  * }
 { *               Copyright (c) 2025 Ugochukwu Mmaduekwe                       * }
 { *                Github Repository <https://github.com/Xor-el>               * }
@@ -522,8 +522,8 @@ begin
   end;
 end;
 
-class function TArrayUtils.Reverse<T>(const Source: TArray<T>): TArray<T>;
-var
+class function TArrayUtils.Reverse<T>(const Source: TArray<T>): TArray<T>;
+var
   I, L: Integer;
 begin
   L := Length(Source);

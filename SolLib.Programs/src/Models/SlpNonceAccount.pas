@@ -1,4 +1,4 @@
-﻿{ ****************************************************************************** }
+{ ****************************************************************************** }
 { *                            SolLib Library                                  * }
 { *               Copyright (c) 2025 Ugochukwu Mmaduekwe                       * }
 { *                Github Repository <https://github.com/Xor-el>               * }
@@ -188,30 +188,6 @@ procedure TNonceAccount.SetVersion(const Value: Cardinal);
 begin
   FVersion := Value;
 end;
-
-(*class function TNonceAccount.Deserialize(const AData: TBytes): INonceAccount;
-var
-  R: INonceAccount;
-  FC: TFeeCalculator;
-begin
-  if Length(AData) <> AccountDataSize then
-    raise EArgumentException.CreateFmt('data has wrong size. Expected %d bytes, actual %d bytes.',
-      [AccountDataSize, Length(AData)]);
-
-  R := TNonceAccount.Create;
-  // version/state
-  R.FVersion := TDeserialization.GetU32(AData, TLayout.VersionOffset);
-  R.FState   := TDeserialization.GetU32(AData, TLayout.StateOffset);
-  // keys
-  R.FAuthorized := TDeserialization.GetPubKey(AData, TLayout.AuthorizedKeyOffset);
-  R.FNonce      := TDeserialization.GetPubKey(AData, TLayout.NonceKeyOffset);
-  // fee calculator
-  FC := TFeeCalculator.Create();
-  FC.LamportsPerSignature := TDeserialization.GetU64(AData, TLayout.FeeCalculatorOffset);
-  R.FFeeCalculator := FC;
-
-  Result := R;
-end; *)
 
 class function TNonceAccount.Deserialize(const AData: TBytes): INonceAccount;
 var
