@@ -27,7 +27,7 @@ uses
 
 type
   /// <summary>
-  /// Cross-platform ticker (background thread). Calls OnTick every IntervalMs.
+  /// Cross-platform ticker. Calls OnTick every IntervalMs.
   /// </summary>
   TTimeTicker = class(TThread)
   private
@@ -70,7 +70,7 @@ begin
   if FStarted then
   begin
     Terminate;       // tell the thread loop to exit
-    FGate.SetEvent;  // wake it up if it�s waiting
+    FGate.SetEvent;  // wake it up if it's waiting
     WaitFor;         // block until Execute has exited
   end;
   FGate.Free;        // now safe to free
