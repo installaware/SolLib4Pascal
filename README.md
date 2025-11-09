@@ -28,6 +28,7 @@ Whether you’re a seasoned developer or just getting started, **SolLib** provid
       - Address Lookup Table Program
       - Memo Program
       - Token Program
+      - Token Swap Program
       - Associated Token Account Program
       - Shared Memory Program
 

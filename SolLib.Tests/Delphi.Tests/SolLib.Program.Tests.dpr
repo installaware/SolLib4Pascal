@@ -132,9 +132,11 @@ uses
   SlpNonceAccount in '..\..\SolLib.Programs\src\Models\SlpNonceAccount.pas',
   SlpSysVars in '..\..\SolLib.Programs\src\SlpSysVars.pas',
   SlpTokenProgramModel in '..\..\SolLib.Programs\src\Models\SlpTokenProgramModel.pas',
+  SlpTokenSwapModel in '..\..\SolLib.Programs\src\Models\SlpTokenSwapModel.pas',
   SlpTokenProgram in '..\..\SolLib.Programs\src\SlpTokenProgram.pas',
   SlpSystemProgram in '..\..\SolLib.Programs\src\SlpSystemProgram.pas',
   SlpToken2022Program in '..\..\SolLib.Programs\src\SlpToken2022Program.pas',
+  SlpTokenSwapProgram in '..\..\SolLib.Programs\src\SlpTokenSwapProgram.pas',
   SlpAssociatedTokenAccountProgram in '..\..\SolLib.Programs\src\SlpAssociatedTokenAccountProgram.pas',
   SlpMemoProgram in '..\..\SolLib.Programs\src\SlpMemoProgram.pas',
   SlpComputeBudgetProgram in '..\..\SolLib.Programs\src\SlpComputeBudgetProgram.pas',
@@ -160,7 +162,8 @@ uses
   ComputeBudgetProgramTests in '..\src\Program\ComputeBudgetProgramTests.pas',
   SharedMemoryProgramTests in '..\src\Program\SharedMemoryProgramTests.pas',
   AddressLookupTableProgramTests in '..\src\Program\AddressLookupTableProgramTests.pas',
-  BPFLoaderProgramTests in '..\src\Program\BPFLoaderProgramTests.pas';
+  BPFLoaderProgramTests in '..\src\Program\BPFLoaderProgramTests.pas',
+  TokenSwapProgramTests in '..\src\Program\TokenSwapProgramTests.pas';
 
 begin
 

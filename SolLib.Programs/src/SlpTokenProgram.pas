@@ -1,4 +1,4 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
 { *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
 { *              Github Repository <https://github.com/Xor-el>               * }
@@ -186,38 +186,56 @@ type
   public
    {---------------------------- Encoders ---------------------------------------------}
     /// <summary>
-    /// Encode the transaction instruction data for <see cref="TTokenProgramInstructions.TValues.Revoke"/>.
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.Revoke"/> method.
     /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeRevokeData: TBytes; static;
 
     /// <summary>
-    /// Encode the data for <see cref="TTokenProgramInstructions.TValues.Approve"/>.
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.Approve"/> method.
     /// </summary>
     /// <param name="AAmount">The amount of tokens to approve the transfer of.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeApproveData(const AAmount: UInt64): TBytes; static;
 
     /// <summary>
-    /// Encode the data for <see cref="TTokenProgramInstructions.TValues.InitializeAccount"/>.
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeAccount"/> method.
     /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeInitializeAccountData: TBytes; static;
 
     /// <summary>
-    /// Encode the data for <see cref="TTokenProgramInstructions.TValues.InitializeMint"/>.
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeMint"/> method.
     /// </summary>
     /// <param name="AMintAuthority">The mint authority for the token.</param>
     /// <param name="AFreezeAuthority">The freeze authority for the token.</param>
-    /// <param name="ADecimals">The token decimals.</param>
-    /// <param name="AFreezeAuthorityOption">Freeze authority option (1 if present, 0 if not).</param>
+    /// <param name="ADecimals">The amount of decimals.</param>
+    /// <param name="AFreezeAuthorityOption">The freeze authority option for the token.</param>
+    /// <remarks>The <c>AFreezeAuthorityOption</c> parameter is related to the existence or not of a freeze authority.</remarks>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeInitializeMintData(const AMintAuthority, AFreezeAuthority: IPublicKey;
       const ADecimals, AFreezeAuthorityOption: Integer): TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.Transfer"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.Transfer"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeTransferData(const AAmount: UInt64): TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.TransferChecked"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.TransferChecked"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The number of decimals of the token.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeTransferCheckedData(const AAmount: UInt64; const ADecimals: Byte): TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.MintTo"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.MintTo"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeMintToData(const AAmount: UInt64): TBytes; static;
 
     /// <summary>
@@ -230,131 +248,310 @@ type
     /// <summary>
     /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.SetAuthority"/> method.
     /// </summary>
+    /// <param name="AAuthorityType">The authority type.</param>
+    /// <param name="ANewAuthorityOption">The new authority option.</param>
+    /// <param name="ANewAuthority">The new authority public key.</param>
     /// <returns>The byte array with the encoded data.</returns>
     class function EncodeSetAuthorityData(const AAuthorityType: TAuthorityType; const ANewAuthorityOption: Integer; ANewAuthority: IPublicKey): TBytes;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.Burn"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.Burn"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeBurnData(const AAmount: UInt64): TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.ThawAccount"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.ThawAccount"/> method.
+    /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeThawAccountData: TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.ApproveChecked"/>.</summary>
+    /// <summary>
+    /// Encodes the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.ApproveChecked"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The decimals of the token.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeApproveCheckedData(const AAmount: UInt64; const ADecimals: Byte): TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.MintToChecked"/>.</summary>
+    /// <summary>
+    /// Encodes the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.MintToChecked"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The decimals of the token.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeMintToCheckedData(const AAmount: UInt64; const ADecimals: Byte): TBytes;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.BurnChecked"/>.</summary>
+    /// <summary>
+    /// Encodes the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.BurnChecked"/> method.
+    /// </summary>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The decimals of the token.</param>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeBurnCheckedData(const AAmount: UInt64; const ADecimals: Byte): TBytes;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.CloseAccount"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.CloseAccount"/> method.
+    /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeCloseAccountData: TBytes;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.FreezeAccount"/>.</summary>
+    /// <summary>
+    /// Encode the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.FreezeAccount"/> method.
+    /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeFreezeAccountData: TBytes; static;
 
-    /// <summary>Encode the data for <see cref="TTokenProgramInstructions.TValues.SyncNative"/>.</summary>
+    /// <summary>
+    /// Encodes the transaction instruction data for the <see cref="TTokenProgramInstructions.TValues.SyncNative"/> method.
+    /// </summary>
+    /// <returns>The byte array with the encoded data.</returns>
     class function EncodeSyncNativeData: TBytes; static;
 
+    {---------------------------- Decoders ---------------------------------------------}
 
-    /// <summary>Decode InitializeMint.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeMint"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeMintData(const ADecoded: IDecodedInstruction;
       const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeAccount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeAccount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeAccountData(const ADecoded: IDecodedInstruction;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeMultiSignature.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeMultiSignature"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeMultiSignatureData(const ADecoded: IDecodedInstruction;
        const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode Transfer.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.Transfer"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeTransferData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode Approve.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.Approve"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeApproveData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode Revoke.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.Revoke"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeRevokeData(const ADecoded: IDecodedInstruction; const AKeys: TArray<IPublicKey>;
       const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode SetAuthority.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.SetAuthority"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeSetAuthorityData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode MintTo.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.MintTo"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeMintToData(const ADecoded: IDecodedInstruction;
       const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);
 
-    /// <summary>Decode Burn.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.Burn"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeBurnData(const ADecoded: IDecodedInstruction;
       const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);
 
-    /// <summary>Decode CloseAccount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.CloseAccount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeCloseAccountData(const ADecoded: IDecodedInstruction; const AKeys: TArray<IPublicKey>;
       const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode FreezeAccount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.FreezeAccount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeFreezeAccountData(const ADecoded: IDecodedInstruction; const AKeys: TArray<IPublicKey>;
       const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode ThawAccount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.ThawAccount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeThawAccountData(const ADecoded: IDecodedInstruction; const AKeys: TArray<IPublicKey>;
       const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode TransferChecked.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.TransferChecked"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeTransferCheckedData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode ApproveChecked.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.ApproveChecked"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeApproveCheckedData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode MintToChecked.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.MintToChecked"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeMintToCheckedData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode BurnChecked.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.BurnChecked"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeBurnCheckedData(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode SyncNative.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.SyncNative"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeSyncNativeData(const ADecoded: IDecodedInstruction; const AKeys: TArray<IPublicKey>;
       const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeAccount2.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeAccount2"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeAccount2(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeAccount3.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeAccount3"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeAccount3(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeMultiSignature2.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeMultiSignature2"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeMultiSignature2(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeMint2.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeMint2"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeMint2(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode AmountToUiAmount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.AmountToUiAmount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeAmountToUiAmount(const ADecoded: IDecodedInstruction;
       const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);
 
-    /// <summary>Decode UiAmountToAmount.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.UiAmountToAmount"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeUiAmountToAmount(const ADecoded: IDecodedInstruction;
       const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);
 
-    /// <summary>Decode GetAccountDataSize.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.GetAccountDataSize"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeGetAccountDataSize(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
 
-    /// <summary>Decode InitializeImmutableOwner.</summary>
+    /// <summary>
+    /// Decodes the instruction instruction data for the <see cref="TTokenProgramInstructions.TValues.InitializeImmutableOwner"/> method
+    /// </summary>
+    /// <param name="ADecoded">The decoded instruction to add data to.</param>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     class procedure DecodeInitializeImmutableOwner(const ADecoded: IDecodedInstruction; const AData: TBytes;
       const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes); static;
   end;
@@ -399,175 +596,238 @@ type
     class constructor Create;
     class destructor Destroy;
 
-    /// <summary>Transfer tokens from one account to another (direct or via delegate).</summary>
-    /// <param name="ASource">Account to transfer from.</param>
-    /// <param name="ADestination">Account to transfer to.</param>
-    /// <param name="AAmount">Amount of tokens to transfer.</param>
-    /// <param name="AAuthority">Authority public key.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initializes an instruction to transfer tokens from one account to another either directly or via a delegate.
+    /// If this account is associated with the native mint then equal amounts of SOL and Tokens will be transferred to the destination account.
+    /// </summary>
+    /// <param name="ASource">The public key of the account to transfer tokens from.</param>
+    /// <param name="ADestination">The public key of the account to account to transfer tokens to.</param>
+    /// <param name="AAmount">The amount of tokens to transfer.</param>
+    /// <param name="AAuthority">The public key of the authority.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function Transfer(const ASource, ADestination: IPublicKey; const AAmount: UInt64;
                             const AAuthority: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Transfer tokens with caller-checked mint/decimals.</summary>
-    /// <param name="ASource">Account to transfer from.</param>
-    /// <param name="ADestination">Account to transfer to.</param>
-    /// <param name="AAmount">Amount of tokens to transfer.</param>
-    /// <param name="ADecimals">Token decimals.</param>
-    /// <param name="AAuthority">Authority public key.</param>
-    /// <param name="ATokenMint">Token mint public key.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// <para>
+    /// Initializes an instruction to transfer tokens from one account to another either directly or via a delegate.
+    /// If this account is associated with the native mint then equal amounts of SOL and Tokens will be transferred to the destination account.
+    /// </para>
+    /// <para>
+    /// This instruction differs from Transfer in that the token mint and decimals value is checked by the caller.
+    /// This may be useful when creating transactions offline or within a hardware wallet.
+    /// </para>
+    /// </summary>
+    /// <param name="ASource">The public key of the account to transfer tokens from.</param>
+    /// <param name="ADestination">The public key of the account to account to transfer tokens to.</param>
+    /// <param name="AAmount">The amount of tokens to transfer.</param>
+    /// <param name="ADecimals">The token decimals.</param>
+    /// <param name="AAuthority">The public key of the authority account.</param>
+    /// <param name="ATokenMint">The public key of the token mint.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function TransferChecked(const ASource, ADestination: IPublicKey; const AAmount: UInt64; const ADecimals: Integer;
                                    const AAuthority, ATokenMint: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Initialize a new token account.</summary>
-    /// <param name="AAccount">Account to initialize.</param>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="AAuthority">Account authority to set.</param>
+    /// <summary>
+    /// <para>Initializes an instruction to initialize a new account to hold tokens.
+    /// If this account is associated with the native mint then the token balance of the initialized account will be equal to the amount of SOL in the account.
+    /// If this account is associated with another mint, that mint must be initialized before this command can succeed.
+    /// </para>
+    /// <para>
+    /// The InitializeAccount instruction requires no signers and MUST be included within the same Transaction
+    /// as the system program's <see cref="SystemProgram.CreateAccount(PublicKey,PublicKey,ulong,ulong,PublicKey)"/>"/>
+    /// instruction that creates the account being initialized.
+    /// Otherwise another party can acquire ownership of the uninitialized account.
+    /// </para>
+    /// </summary>
+    /// <param name="AAccount">The public key of the account to initialize.</param>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="AAuthority">The public key of the account to set as authority of the initialized account.</param>
     /// <returns>The transaction instruction.</returns>
     class function InitializeAccount(const AAccount, AMint, AAuthority: IPublicKey): ITransactionInstruction; static;
 
-    /// <summary>Initialize a multisignature account.</summary>
-    /// <param name="AMultiSignature">Multisig account public key.</param>
-    /// <param name="ASigners">Signer addresses.</param>
-    /// <param name="AM">Number of required signatures.</param>
-    /// <returns>The transaction instruction.</returns>
+    /// <summary>
+    /// Initializes an instruction to initialize a multi signature token account.
+    /// </summary>
+    /// <param name="AMultiSignature">Public key of the multi signature account.</param>
+    /// <param name="ASigners">Addresses of multi signature signers.</param>
+    /// <param name="AM">The number of signatures required to validate this multi signature account.</param>
     class function InitializeMultiSignature(const AMultiSignature: IPublicKey; const ASigners: TArray<IPublicKey>;
                                             const AM: Integer): ITransactionInstruction; static;
 
-    /// <summary>Initialize a token mint.</summary>
-    /// <param name="AMint">Mint account.</param>
-    /// <param name="ADecimals">Token decimals.</param>
-    /// <param name="AMintAuthority">Mint authority.</param>
-    /// <param name="AFreezeAuthority">Optional freeze authority.</param>
-    /// <returns>The transaction instruction.</returns>
+    /// <summary>
+    /// Initializes an instruction to transfer tokens from one account to another either directly or via a delegate.
+    /// If this account is associated with the native mint then equal amounts of SOL and Tokens will be transferred to the destination account.
+    /// </summary>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="ADecimals">The token decimals.</param>
+    /// <param name="AMintAuthority">The public key of the token mint authority.</param>
+    /// <param name="AFreezeAuthority">The token freeze authority.</param>
     class function InitializeMint(const AMint: IPublicKey; const ADecimals: Integer;
                                   const AMintAuthority: IPublicKey; const AFreezeAuthority: IPublicKey = nil): ITransactionInstruction; static;
 
-    /// <summary>Mint tokens to a destination account.</summary>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="ADestination">Destination account.</param>
-    /// <param name="AAmount">Amount to mint.</param>
-    /// <param name="AMintAuthority">Mint authority.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initializes an instruction to mint tokens to a destination account.
+    /// </summary>
+    /// <param name="AMint">The public key token mint.</param>
+    /// <param name="ADestination">The public key of the account to mint tokens to.</param>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="AMintAuthority">The token mint authority account.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function MintTo(const AMint, ADestination: IPublicKey; const AAmount: UInt64;
                           const AMintAuthority: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Approve a delegate to transfer up to a specified amount.</summary>
-    /// <param name="ASource">Source account.</param>
-    /// <param name="ADelegate">Delegate account.</param>
-    /// <param name="AAuthority">Source authority.</param>
-    /// <param name="AAmount">Maximum transferable amount.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initializes an instruction to approve a transaction.
+    /// </summary>
+    /// <param name="ASource">The public key source account.</param>
+    /// <param name="ADelegate">The public key of the delegate account authorized to perform a transfer from the source account.</param>
+    /// <param name="AAuthority">The public key of the authority of the source account.</param>
+    /// <param name="AAmount">The maximum amount of tokens the delegate may transfer.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function Approve(const ASource, ADelegate, AAuthority: IPublicKey; const AAmount: UInt64;
                            const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Revoke a previously approved delegation.</summary>
-    /// <param name="ASource">Source account.</param>
-    /// <param name="AAuthority">Source authority.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initializes an instruction to revoke a transaction.
+    /// </summary>
+    /// <param name="ASource">The public key source account.</param>
+    /// <param name="AAuthority">The public key of the authority of the source account.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function Revoke(const ASource, AAuthority: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Set an authority on an account.</summary>
-    /// <param name="AAccount">Target account.</param>
-    /// <param name="AAuthorityType">Authority type to set.</param>
-    /// <param name="ACurrentAuthority">Current authority of that type.</param>
-    /// <param name="ANewAuthority">New authority (optional).</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to set an authority on an account.
+    /// </summary>
+    /// <param name="AAccount">The public key of the account to set the authority on.</param>
+    /// <param name="AAuthorityType">The type of authority to set.</param>
+    /// <param name="ACurrentAuthority">The public key of the current authority of the specified type.</param>
+    /// <param name="ANewAuthority">The public key of the new authority.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function SetAuthority(const AAccount: IPublicKey; const AAuthorityType: TAuthorityType;
                                 const ACurrentAuthority: IPublicKey; const ANewAuthority: IPublicKey = nil;
                                 const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Burn tokens.</summary>
-    /// <param name="ASource">Account to burn from.</param>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="AAmount">Amount to burn.</param>
-    /// <param name="AAuthority">Source authority.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to burn tokens.
+    /// </summary>
+    /// <param name="ASource">The public key of the account to burn tokens from.</param>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="AAmount">The amount of tokens to burn.</param>
+    /// <param name="AAuthority">The public key of the authority of the source account.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function Burn(const ASource, AMint: IPublicKey; const AAmount: UInt64;
                         const AAuthority: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Close a token account and send its SOL to the destination.</summary>
-    /// <param name="AAccount">Account to close.</param>
-    /// <param name="ADestination">Recipient of SOL.</param>
-    /// <param name="AAuthority">Account authority.</param>
-    /// <param name="AProgramId">Associated program id.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to close an account.
+    /// </summary>
+    /// <param name="AAccount">The public key of the account to close.</param>
+    /// <param name="ADestination">The public key of the account that will receive the SOL.</param>
+    /// <param name="AAuthority">The public key of the authority of the source account.</param>
+    /// <param name="AProgramId">The public key which represents the associated program id.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function CloseAccount(const AAccount, ADestination, AAuthority, AProgramId: IPublicKey;
                                 const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Freeze a token account.</summary>
-    /// <param name="AAccount">Account to freeze.</param>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="AFreezeAuthority">Freeze authority.</param>
-    /// <param name="AProgramId">Associated program id.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to freeze a token account.
+    /// </summary>
+    /// <param name="AAccount">The public key of the account to freeze.</param>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="AFreezeAuthority">The public key of the authority of the freeze authority for the token mint.</param>
+    /// <param name="AProgramId">The public key which represents the associated program id.</param>
+    /// <param name="ASigners">Signing accounts if the <c>freezeAuthority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function FreezeAccount(const AAccount, AMint, AFreezeAuthority, AProgramId: IPublicKey;
                                  const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Thaw a frozen token account.</summary>
-    /// <param name="AAccount">Account to thaw.</param>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="AFreezeAuthority">Freeze authority.</param>
-    /// <param name="AProgramId">Associated program id.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to thaw a token account.
+    /// </summary>
+    /// <param name="AAccount">The public key of the account to thaw.</param>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="AFreezeAuthority">The public key of the freeze authority for the token mint.</param>
+    /// <param name="AProgramId">The public key which represents the associated program id.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function ThawAccount(const AAccount, AMint, AFreezeAuthority, AProgramId: IPublicKey;
                                const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Approve a delegate (caller-checked amount/decimals).</summary>
-    /// <param name="ASource">Source account.</param>
-    /// <param name="ADelegate">Delegate account.</param>
-    /// <param name="AAmount">Maximum transferable amount.</param>
-    /// <param name="ADecimals">Token decimals.</param>
-    /// <param name="AAuthority">Source authority.</param>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to approve a transaction.
+    /// <para>
+    /// This instruction differs from Approve in that the amount and decimals value is checked by the caller.
+    /// This may be useful when creating transactions offline or within a hardware wallet.
+    /// </para>
+    /// </summary>
+    /// <param name="ASource">The public key of the source account.</param>
+    /// <param name="ADelegate">The public key of the delegate account authorized to perform a transfer from the source account.</param>
+    /// <param name="AAmount">The maximum amount of tokens the delegate may transfer.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
+    /// <param name="ADecimals">The token decimals.</param>
+    /// <param name="AMint">The public key of the token mint.</param>
     /// <returns>The transaction instruction.</returns>
     class function ApproveChecked(const ASource, ADelegate: IPublicKey; const AAmount: UInt64; const ADecimals: Byte;
                                   const AAuthority, AMint: IPublicKey; const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Mint tokens with caller-checked decimals.</summary>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="ADestination">Destination account.</param>
-    /// <param name="AMintAuthority">Mint authority.</param>
-    /// <param name="AAmount">Amount to mint.</param>
-    /// <param name="ADecimals">Token decimals.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to approve a transaction.
+    /// <para>
+    /// This instruction differs from MintTo in that the amount and decimals value is checked by the caller.
+    /// This may be useful when creating transactions offline or within a hardware wallet.
+    /// </para>
+    /// </summary>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="ADestination">The public key of the account to mint tokens to.</param>
+    /// <param name="AMintAuthority">The public key of the token's mint authority account.</param>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The token decimals.</param>
+    /// <param name="ASigners">Signing accounts if the <c>mintAuthority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function MintToChecked(const AMint, ADestination, AMintAuthority: IPublicKey;
                                  const AAmount: UInt64; const ADecimals: Integer;
                                  const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Burn tokens with caller-checked decimals.</summary>
-    /// <param name="AMint">Token mint.</param>
-    /// <param name="AAccount">Account to burn from.</param>
-    /// <param name="AAuthority">Source authority.</param>
-    /// <param name="AAmount">Amount to burn.</param>
-    /// <param name="ADecimals">Token decimals.</param>
-    /// <param name="ASigners">Optional multisig signer keys.</param>
+    /// <summary>
+    /// Initialize an instruction to burn tokens.
+    /// <para>
+    /// This instruction differs from Burn in that the amount and decimals value is checked by the caller.
+    /// This may be useful when creating transactions offline or within a hardware wallet.
+    /// </para>
+    /// </summary>
+    /// <param name="AMint">The public key of the token mint.</param>
+    /// <param name="AAccount">The public key of the account to burn from.</param>
+    /// <param name="AAuthority">The public key of the authority of the source account.</param>
+    /// <param name="AAmount">The amount of tokens.</param>
+    /// <param name="ADecimals">The token decimals.</param>
+    /// <param name="ASigners">Signing accounts if the <c>authority</c> is a multi signature.</param>
     /// <returns>The transaction instruction.</returns>
     class function BurnChecked(const AMint, AAccount, AAuthority: IPublicKey;
                                const AAmount: UInt64; const ADecimals: Integer;
                                const ASigners: TArray<IPublicKey> = nil): ITransactionInstruction; static;
 
-    /// <summary>Sync a native token account.</summary>
-    /// <param name="AAccount">Token account.</param>
+    /// <summary>
+    /// Initialize an instruction to sync native tokens.
+    /// </summary>
+    /// <param name="AAccount">The public key of the token account.</param>
     /// <returns>The transaction instruction.</returns>
     class function SyncNative(const AAccount: IPublicKey): ITransactionInstruction; static;
 
-    /// <summary>Decode a token program instruction.</summary>
-    /// <param name="AData">Instruction data.</param>
-    /// <param name="AKeys">Transaction account keys.</param>
-    /// <param name="AKeyIndices">Instruction key indices into <paramref name="AKeys"/>.</param>
+    /// <summary>
+    /// Decodes an instruction created by the System Program.
+    /// </summary>
+    /// <param name="AData">The instruction data to decode.</param>
+    /// <param name="AKeys">The account keys present in the transaction.</param>
+    /// <param name="AKeyIndices">The indices of the account keys for the instruction as they appear in the transaction.</param>
     /// <returns>A decoded instruction.</returns>
     class function Decode(const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes): IDecodedInstruction; static;
   end;

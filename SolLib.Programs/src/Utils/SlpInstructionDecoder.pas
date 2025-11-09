@@ -36,6 +36,7 @@ uses
   SlpSystemProgram,
   SlpTokenProgram,
   SlpToken2022Program,
+  SlpTokenSwapProgram,
   SlpAssociatedTokenAccountProgram,
   SlpSharedMemoryProgram,
   SlpComputeBudgetProgram;
@@ -132,6 +133,9 @@ begin
   // SPL Token
   FInstructionDictionary.Add(TTokenProgram.ProgramIdKey.Key, TTokenProgram.Decode);
   FInstructionDictionary.Add(TToken2022Program.ProgramIdKey.Key, TToken2022Program.Decode);
+
+  // Token Swap Program
+  FInstructionDictionary.Add(TTokenSwapProgram.ProgramIdKey.Key, TTokenSwapProgram.Decode);
 
   // Associated Token Account
   FInstructionDictionary.Add(TAssociatedTokenAccountProgram.ProgramIdKey.Key, TAssociatedTokenAccountProgram.Decode);

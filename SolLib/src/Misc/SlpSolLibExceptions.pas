@@ -96,6 +96,8 @@ type
   /// </summary>
   EComputeBudgetEstimationError = class(Exception);
 
+  EInvalidProgramException = class(Exception);
+
 implementation
 
 { ETokenWalletException<T> }

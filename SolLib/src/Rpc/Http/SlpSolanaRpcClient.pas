@@ -45,9 +45,6 @@ uses
   SlpNullable,
   SlpValueUtils,
   SlpLogger,
-  SlpJsonKit,
-  SlpEncodingConverter,
-  SlpJsonStringEnumConverter,
   SlpJsonConverterFactory;
 
 type
