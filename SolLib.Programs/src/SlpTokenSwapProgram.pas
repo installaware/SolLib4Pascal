@@ -39,6 +39,15 @@ uses
   SlpSolLibExceptions;
 
 type
+  TAuthorityPair = record
+  private
+    FPublicKey: IPublicKey;
+    FNonce: Byte;
+  public
+    constructor Create(const APublicKey: IPublicKey; ANonce: Byte);
+    property PublicKey: IPublicKey read FPublicKey;
+    property Nonce: Byte read FNonce;
+  end;
 
   {====================================================================================================================}
   {                                           TokenSwapProgramInstructions                                             }
@@ -227,8 +236,6 @@ type
     class function GetProgramIdKey: IPublicKey; static;
     class function GetOwnerKey: IPublicKey; static;
 
-    /// <summary>Create the swap authority PDA (pubkey + nonce).</summary>
-    class function CreateAuthority(const ATokenSwapAccount: IPublicKey): TPair<IPublicKey, Byte>; static;
   public
     /// <summary>The SPL Token Swap Program ID.</summary>
     class property ProgramIdKey: IPublicKey read GetProgramIdKey;
@@ -240,6 +247,13 @@ type
 
     class constructor Create;
     class destructor Destroy;
+
+    /// <summary>
+    /// Create the authority
+    /// </summary>
+    /// <returns>The swap authority</returns>
+    /// <exception cref="EInvalidProgramException">No program account could be found (exhausted nonces)</exception>
+    class function CreateAuthority(const ATokenSwapAccount: IPublicKey): TAuthorityPair; static;
 
     /// <summary>
     /// Initializes a new swap.
@@ -403,6 +417,14 @@ type
   end;
 
 implementation
+
+{ TAuthorityPair }
+
+constructor TAuthorityPair.Create(const APublicKey: IPublicKey; ANonce: Byte);
+begin
+  FPublicKey := APublicKey;
+  FNonce := ANonce;
+end;
 
 { TTokenSwapProgramInstructions }
 
@@ -641,7 +663,7 @@ begin
 end;
 
 class function TTokenSwapProgram.CreateAuthority(
-  const ATokenSwapAccount: IPublicKey): TPair<IPublicKey, Byte>;
+  const ATokenSwapAccount: IPublicKey): TAuthorityPair;
 var
   LAuth: IPublicKey;
   LNonce: Byte;
@@ -655,7 +677,7 @@ begin
     LNonce);
   if not LOk then
     raise EInvalidProgramException.Create('No valid program address found for TokenSwap authority.');
-  Result := TPair<IPublicKey, Byte>.Create(LAuth, LNonce);
+  Result := TAuthorityPair.Create(LAuth, LNonce);
 end;
 
 class function TTokenSwapProgram.Initialize(
@@ -663,14 +685,14 @@ class function TTokenSwapProgram.Initialize(
         APoolTokenFeeAccount, AUserPoolTokenAccount: IPublicKey;
   const AFees: IFees; const ASwapCurve: ISwapCurve): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.Writable(ATokenSwapAccount, True));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(ATokenAAccount, False));
   LKeys.Add(TAccountMeta.ReadOnly(ATokenBAccount, False));
   LKeys.Add(TAccountMeta.Writable(APoolTokenMint, False));
@@ -681,7 +703,7 @@ begin
   Result := TTransactionInstruction.Create(
     ProgramIdKey.KeyBytes,
     LKeys,
-    TTokenSwapProgramData.EncodeInitializeData(LAuth.Value, AFees, ASwapCurve)
+    TTokenSwapProgramData.EncodeInitializeData(LAuth.Nonce, AFees, ASwapCurve)
   );
 end;
 
@@ -691,14 +713,14 @@ class function TTokenSwapProgram.Swap(
         APoolTokenMint, APoolTokenFeeAccount, APoolTokenHostFeeAccount: IPublicKey;
   const AAmountIn, AAmountOut: UInt64): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(ATokenSwapAccount, False));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(AUserTransferAuthority, False));
   LKeys.Add(TAccountMeta.Writable(ATokenSourceAccount, False));
   LKeys.Add(TAccountMeta.Writable(ATokenBaseIntoAccount, False));
@@ -724,14 +746,14 @@ class function TTokenSwapProgram.DepositAllTokenTypes(
         APoolTokenMint, APoolTokenUserAccount: IPublicKey;
   const APoolTokenAmount, AMaxTokenA, AMaxTokenB: UInt64): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(ATokenSwapAccount, False));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(AUserTransferAuthority, False));
   LKeys.Add(TAccountMeta.Writable(ATokenAUserAccount, False));
   LKeys.Add(TAccountMeta.Writable(ATokenBUserAccount, False));
@@ -753,14 +775,14 @@ class function TTokenSwapProgram.WithdrawAllTokenTypes(
         ATokenASwapAccount, ATokenBSwapAccount, ATokenAUserAccount, ATokenBUserAccount,
         AFeeAccount: IPublicKey; const APoolTokenAmount, AMinTokenA, AMinTokenB: UInt64): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(ATokenSwapAccount, False));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(AUserTransferAuthority, False));
   LKeys.Add(TAccountMeta.Writable(APoolTokenMint, False));
   LKeys.Add(TAccountMeta.Writable(ASourcePoolAccount, False));
@@ -784,14 +806,14 @@ class function TTokenSwapProgram.DepositSingleTokenTypeExactAmountIn(
         APoolMintAccount, APoolTokenUserAccount: IPublicKey;
   const ASourceTokenAmount, AMinPoolTokenAmount: UInt64): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(ATokenSwapAccount, False));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(AUserTransferAuthority, False));
   LKeys.Add(TAccountMeta.Writable(ASourceAccount, False));
   LKeys.Add(TAccountMeta.Writable(ADestinationTokenAAccount, False));
@@ -812,14 +834,14 @@ class function TTokenSwapProgram.WithdrawSingleTokenTypeExactAmountOut(
         ATokenASwapAccount, ATokenBSwapAccount, ATokenUserAccount, AFeeAccount: IPublicKey;
   const ADestTokenAmount, AMaxPoolTokenAmount: UInt64): ITransactionInstruction;
 var
-  LAuth: TPair<IPublicKey, Byte>;
+  LAuth: TAuthorityPair;
   LKeys: TList<IAccountMeta>;
 begin
   LAuth := CreateAuthority(ATokenSwapAccount);
 
   LKeys := TList<IAccountMeta>.Create;
   LKeys.Add(TAccountMeta.ReadOnly(ATokenSwapAccount, False));
-  LKeys.Add(TAccountMeta.ReadOnly(LAuth.Key, False));
+  LKeys.Add(TAccountMeta.ReadOnly(LAuth.PublicKey, False));
   LKeys.Add(TAccountMeta.ReadOnly(AUserTransferAuthority, False));
   LKeys.Add(TAccountMeta.Writable(APoolMintAccount, False));
   LKeys.Add(TAccountMeta.Writable(ASourceUserAccount, False));
