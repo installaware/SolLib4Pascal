@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -961,7 +961,7 @@ begin
   FNames.Free;
 end;
 
-{=== Token2022ProgramData � Encoders ===}
+{=== Token2022ProgramData - Encoders ===}
 
 class function TToken2022ProgramData.EncodeAmountLayout(AMethod: Byte; const AAmount: UInt64): TBytes;
 begin
@@ -1076,7 +1076,7 @@ begin
   Result := TBytes.Create(Byte(TToken2022ProgramInstructions.TValues.SyncNative));
 end;
 
-{=== Token2022ProgramData � Decoders ===}
+{=== Token2022ProgramData - Decoders ===}
 
 class procedure TToken2022ProgramData.DecodeInitializeMintData(const ADecoded: IDecodedInstruction;
   const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);

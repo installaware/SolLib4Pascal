@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -434,7 +434,7 @@ begin
   AssertFalse(TestTokenAccount.IsAssociatedTokenAccount);
 
   // going to send some TEST token to destination wallet that does not have an ATA
-  // internally triggers a wallet load → so we preload responses
+  // internally triggers a wallet load so we preload responses
   MockRpcClient.AddTextFile(TTestUtils.CombineAll([FResDir, 'TokenWallet', 'GetBalanceResponse.json']));
   MockRpcClient.AddTextFile(TTestUtils.CombineAll([FResDir, 'TokenWallet', 'GetTokenAccountsByOwnerResponse2.json']));
   MockRpcClient.AddTextFile(TTestUtils.CombineAll([FResDir, 'TokenWallet', 'GetRecentBlockhashResponse.json']));
@@ -580,7 +580,7 @@ begin
   AccountInA := WalletA.TokenAccounts.ForToken(TestToken).WithAtLeast(5.0).First;
   AssertFalse(AccountInA.IsAssociatedTokenAccount);
 
-  // attempt to send using wallet B — should raise an exception (account mismatch)
+  // attempt to send using wallet B should raise an exception (account mismatch)
   AssertException(
     procedure
     begin
@@ -710,7 +710,7 @@ begin
       AssertNotNull(Resp.Result);
       AssertEquals(2, Resp.Result.Count);
 
-      // Process and invoke callbacks — this unblocks WalletPromise
+      // Process and invoke callbacks - this unblocks WalletPromise
       BatchResp := Batch.Composer.ProcessBatchResponse(Resp);
       try
         Wallet := WalletPromise();

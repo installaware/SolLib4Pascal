@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -202,7 +202,7 @@ begin
           Exit;
         end;
 
-        // DOM node → write as-is to preserve tokens (no stringification)
+        // DOM node - write as-is to preserve tokens (no stringification)
         if Obj is TJSONValue then
         begin
           W.WriteJsonValue(TJSONValue(Obj));

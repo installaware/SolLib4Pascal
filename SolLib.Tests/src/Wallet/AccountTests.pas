@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -308,7 +308,7 @@ var
 begin
   // A has known keys; B is random (very likely different public key)
   A := TAccount.Create(PrivateKeyBytes, PublicKeyBytes);
-  B := TAccount.Create; // random seed → different keypair
+  B := TAccount.Create; // random seed - different keypair
 
   AssertFalse(A.Equals(B), 'Equals should be False when public keys differ');
   AssertFalse(B.Equals(A), 'Equals should be symmetric when public keys differ');

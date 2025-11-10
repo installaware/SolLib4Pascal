@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -44,7 +44,7 @@ type
   /// Flow:
   /// <list type="number">
   ///   <item><description>Simulate <paramref name="ADraftTransactionBytes"/> to obtain <c>UnitsConsumed</c>.</description></item>
-  ///   <item><description>Compute requested limit = <c>ceil(UnitsConsumed × ASafetyMargin)</c>. (Priority fee is charged on the <i>requested</i> limit.)</description></item>
+  ///   <item><description>Compute requested limit = <c>ceil(UnitsConsumed * ASafetyMargin)</c>. (Priority fee is charged on the <i>requested</i> limit.)</description></item>
   ///   <item><description>Fetch recent prioritization fees and pick μ-lamports/CU at <paramref name="AMaxRequiredFeeRatio"/>. If the call succeeds but returns no samples, use <paramref name="ADefaultMicroLamportsPerCu"/>.</description></item>
   /// </list>
   /// </para>
@@ -87,9 +87,9 @@ type
     /// <summary>
     /// Builds priority-fee guidance for a draft transaction by:
     /// 1) simulating the transaction bytes to obtain <c>UnitsConsumed</c>,
-    /// 2) computing the requested compute unit limit as <c>UnitsConsumed + ceil(UnitsConsumed × ASafetyMargin)</c>,
+    /// 2) computing the requested compute unit limit as <c>UnitsConsumed + ceil(UnitsConsumed * ASafetyMargin)</c>,
     /// 3) querying recent prioritization fees for the accounts you plan to lock and
-    ///    pricing as <c>ceil(max(per-account minimums) × AMaxRequiredFeeRatio)</c>
+    ///    pricing as <c>ceil(max(per-account minimums) * AMaxRequiredFeeRatio)</c>
     ///    (falling back to <paramref name="ADefaultMicroLamportsPerCu"/> if no usable samples are returned).
     /// Returns a class with the corresponding <c>SetComputeUnitLimit</c> and <c>SetComputeUnitPrice</c> instructions.
     /// </summary>
@@ -106,17 +106,17 @@ type
     /// </param>
     /// <param name="ASafetyMargin">
     /// Multiplier applied directly to the simulated <c>UnitsConsumed</c> to produce the requested limit:
-    /// <c>ComputeUnitLimit = UnitsConsumed + ceil(UnitsConsumed × ASafetyMargin)</c>. Must be in the range <c>[0..1]</c>.
+    /// <c>ComputeUnitLimit = UnitsConsumed + ceil(UnitsConsumed * ASafetyMargin)</c>. Must be in the range <c>[0..1]</c>.
     /// For example, <c>0.10</c> = +10% of used units.
     /// </param>
     /// <param name="AMaxRequiredFeeRatio">
     /// Fraction in the range <c>[0..1]</c> applied to the strict requirement derived from the endpoint:
-    /// <c>ComputeUnitPrice(μ-lamports/CU) = ceil( max(per-account minimums) × AMaxRequiredFeeRatio )</c>.
+    /// <c>ComputeUnitPrice(μ-lamports/CU) = ceil( max(per-account minimums) * AMaxRequiredFeeRatio )</c>.
     /// Examples:
     /// <list type="bullet">
-    /// <item><description><c>1.0</c> → pay the strict maximum (safest “must-land”).</description></item>
-    /// <item><description><c>0.75</c> → pay 75% of that maximum (e.g., max=6 ⇒ price=ceil(6×0.75)=5).</description></item>
-    /// <item><description><c>0.5</c> → pay 50% of that maximum (default if you choose so elsewhere).</description></item>
+    /// <item><description><c>1.0</c> -> pay the strict maximum (safest "must-land").</description></item>
+    /// <item><description><c>0.75</c> -> pay 75% of that maximum (e.g., max=6 -> price=ceil(6 * 0.75) = 5).</description></item>
+    /// <item><description><c>0.5</c> -> pay 50% of that maximum (default if you choose so elsewhere).</description></item>
     /// </list>
     /// If the endpoint returns an empty set or only zeros, the function uses <paramref name="ADefaultMicroLamportsPerCu"/>.
     /// </param>
@@ -159,7 +159,7 @@ type
     /// Flow:
     /// <list type="number">
     ///   <item><description>Simulate <paramref name="ADraftTransactionBytes"/> (which should NOT contain compute-budget instructions) to obtain <c>UnitsConsumed</c>.</description></item>
-    ///   <item><description>Compute requested compute-unit limit as <c>UnitsConsumed + ceil(UnitsConsumed × ASafetyMargin)</c>, then round up to <paramref name="AComputeUnitStep"/> and clamp to <paramref name="AMinComputeUnitLimit"/>..\<paramref name="AMaxComputeUnitLimit"/>.</description></item>
+    ///   <item><description>Compute requested compute-unit limit as <c>UnitsConsumed + ceil(UnitsConsumed * ASafetyMargin)</c>, then round up to <paramref name="AComputeUnitStep"/> and clamp to <paramref name="AMinComputeUnitLimit"/>..\<paramref name="AMaxComputeUnitLimit"/>.</description></item>
     ///   <item><description>Fetch recent prioritization fees and pick the <paramref name="APrioritizationPercentile"/> (e.g., 0.75 = P75). Multiply by <paramref name="AMaxRequiredFeeRatio"/>, ceil, and clamp to <paramref name="AMinPriceMicroLamportsPerCu"/>..\<paramref name="AMaxPriceMicroLamportsPerCu"/>. If no usable samples, fall back to <paramref name="ADefaultMicroLamportsPerCu"/>.</description></item>
     /// </list>
     /// Returns <see cref="IPriorityFeesInformation"/> with <c>SetComputeUnitLimit</c> and <c>SetComputeUnitPrice</c> ready to prepend to the transaction.
@@ -333,7 +333,7 @@ begin
   // 3) Fetch recent fees (throws if RPC failed)
   LFees := FetchRecentPrioritizationFees(ARpc, AFeeHintAccounts);
 
-  // 4) Derive μ-lamports/CU from max(mins) × ratio (with fallback)
+  // 4) Derive μ-lamports/CU from max(mins) * ratio (with fallback)
   LComputeUnitPrice := ComputePriceFromAccountMinimums(
     LFees,
     AMaxRequiredFeeRatio,

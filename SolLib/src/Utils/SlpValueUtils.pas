@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -1229,7 +1229,7 @@ class function TValueUtils.ToStringExtended(const V: TValue): string;
     // If the interface is from a class implementing IInterface
     if I.QueryInterface(IInterface, Unknown) = S_OK then
     begin
-      // Safe: this only works if it’s a Delphi class implementing IInterface
+      // Safe: this only works if it’s a class implementing IInterface
       if TObject(Unknown) is TObject then
         Result := TObject(Unknown);
     end;

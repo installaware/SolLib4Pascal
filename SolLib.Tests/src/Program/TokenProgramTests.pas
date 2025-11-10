@@ -1,6 +1,6 @@
-{ * ************************************************************************ * }
+﻿{ * ************************************************************************ * }
 { *                              SolLib Library                              * }
-{ *                  Copyright (c) 2025 Ugochukwu Mmaduekwe                  * }
+{ *                       Author - Ugochukwu Mmaduekwe                       * }
 { *              Github Repository <https://github.com/Xor-el>               * }
 { *                                                                          * }
 { *  Distributed under the MIT software license, see the accompanying file   * }
@@ -1230,7 +1230,7 @@ begin
     AssertEquals(5, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � System Program: Create Account
+    // Instruction 0 - System Program: Create Account
     //
     AssertEquals('Create Account', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('System Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1250,7 +1250,7 @@ begin
     AssertEquals(355, LVal.AsType<UInt64>, 'I0 Space (bytes)');
 
     //
-    // Instruction 1 � Token Program: Initialize Multisig
+    // Instruction 1 - Token Program: Initialize Multisig
     //
     AssertEquals('Initialize Multisig', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
@@ -1279,7 +1279,7 @@ begin
     AssertEquals('AKWjVdBUvekPc2bGf6gKAbQNRSfiXVZ3qFVnP6W8p1W8', LVal.AsType<IPublicKey>.Key, 'I1 Signer 5');
 
     //
-    // Instruction 3 � Token Program: Initialize Mint
+    // Instruction 3 - Token Program: Initialize Mint
     // (index 2 is the Rent sysvar account)
     //
     AssertEquals('Initialize Mint', LDecoded[3].InstructionName, 'I3 name');
@@ -1323,7 +1323,7 @@ begin
     AssertEquals(4, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � System Program: Create Account
+    // Instruction 0 - System Program: Create Account
     //
     AssertEquals('Create Account', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('System Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1343,7 +1343,7 @@ begin
     AssertEquals(165, LVal.AsType<UInt64>, 'I0 Space (bytes)');
 
     //
-    // Instruction 1 � Token Program: Initialize Account
+    // Instruction 1 - Token Program: Initialize Account
     //
     AssertEquals('Initialize Account', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
@@ -1360,7 +1360,7 @@ begin
     AssertEquals('HUATcRqk8qaNHTfRjBePt9mUZ16dDN1cbpWQDk7QFUGm', LVal.AsType<IPublicKey>.Key, 'I1 Mint');
 
     //
-    // Instruction 2 � Token Program: Mint To (Multisig)
+    // Instruction 2 - Token Program: Mint To (Multisig)
     //
     AssertEquals('Mint To', LDecoded[2].InstructionName, 'I2 name');
     AssertEquals('Token Program', LDecoded[2].ProgramName, 'I2 program');
@@ -1408,7 +1408,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Mint To Checked (Multisig)
+    // Instruction 0 - Token Program: Mint To Checked (Multisig)
     //
     AssertEquals('Mint To Checked', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1459,7 +1459,7 @@ begin
     AssertEquals(1, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Transfer Checked (Multisig)
+    // Instruction 0 - Token Program: Transfer Checked (Multisig)
     //
     AssertEquals('Transfer Checked', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1513,7 +1513,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Burn Checked
+    // Instruction 0 - Token Program: Burn Checked
     //
     AssertEquals('Burn Checked', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1555,7 +1555,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Freeze Account
+    // Instruction 0 - Token Program: Freeze Account
     //
     AssertEquals('Freeze Account', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1600,7 +1600,7 @@ begin
     AssertEquals(3, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Thaw Account
+    // Instruction 0 - Token Program: Thaw Account
     //
     AssertEquals('Thaw Account', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1626,7 +1626,7 @@ begin
     AssertEquals('8GrcvhyiKdVk9DTYtKkW5qiiR74hevpiQQ1cFMFAmR3o', LVal.AsType<IPublicKey>.Key, 'I0 Signer 3');
 
     //
-    // Instruction 1 � Token Program: Set Authority
+    // Instruction 1 - Token Program: Set Authority
     //
     AssertEquals('Set Authority', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
@@ -1677,7 +1677,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Approve Checked (Multisig)
+    // Instruction 0 - Token Program: Approve Checked (Multisig)
     //
     AssertEquals('Approve Checked', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1731,7 +1731,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Approve (Multisig)
+    // Instruction 0 - Token Program: Approve (Multisig)
     //
     AssertEquals('Approve', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1779,7 +1779,7 @@ begin
     AssertEquals(1, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Transfer (Multisig)
+    // Instruction 0 - Token Program: Transfer (Multisig)
     //
     AssertEquals('Transfer', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1827,7 +1827,7 @@ begin
     AssertEquals(2, LDecoded.Count, 'Decoded instruction count');
 
     //
-    // Instruction 0 � Token Program: Burn
+    // Instruction 0 - Token Program: Burn
     //
     AssertEquals('Burn', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -1863,7 +1863,7 @@ begin
   LDecoded := TInstructionDecoder.DecodeInstructions(LMsg);
   try
     //
-    // Instruction 1 � Token Program: Burn (Multisig)
+    // Instruction 1 - Token Program: Burn (Multisig)
     //
     AssertEquals('Burn', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
@@ -1908,7 +1908,7 @@ begin
   LDecoded := TInstructionDecoder.DecodeInstructions(LMsg);
   try
     //
-    // Instruction 1 � Token Program: Burn Checked (Multisig)
+    // Instruction 1 - Token Program: Burn Checked (Multisig)
     //
     AssertEquals('Burn Checked', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
@@ -1956,7 +1956,7 @@ begin
   LDecoded := TInstructionDecoder.DecodeInstructions(LMsg);
   try
     //
-    // Instruction 1 � Token Program: Revoke (Multisig)
+    // Instruction 1 - Token Program: Revoke (Multisig)
     //
     AssertEquals(3, LDecoded.Count, 'Decoded instruction count');
     AssertEquals('Revoke', LDecoded[1].InstructionName, 'I1 name');
@@ -1996,7 +1996,7 @@ begin
   LDecoded := TInstructionDecoder.DecodeInstructions(LMsg);
   try
     //
-    // Instruction 0 � Token Program: Burn Checked
+    // Instruction 0 - Token Program: Burn Checked
     //
     AssertEquals('Burn Checked', LDecoded[0].InstructionName, 'I0 name');
     AssertEquals('Token Program', LDecoded[0].ProgramName, 'I0 program');
@@ -2028,7 +2028,7 @@ begin
     AssertEquals('5Xcw7EQb6msgpVdGB8Hf8kpCqVyacTChgFBUphpuUeBo', LVal.AsType<IPublicKey>.Key, 'I0 Signer 3');
 
     //
-    // Instruction 1 � Token Program: Close Account
+    // Instruction 1 - Token Program: Close Account
     //
     AssertEquals('Close Account', LDecoded[1].InstructionName, 'I1 name');
     AssertEquals('Token Program', LDecoded[1].ProgramName, 'I1 program');
