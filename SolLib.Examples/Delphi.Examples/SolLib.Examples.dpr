@@ -116,14 +116,18 @@ uses
   SlpNonceAccount in '..\..\SolLib.Programs\src\Models\SlpNonceAccount.pas',
   SlpSysVars in '..\..\SolLib.Programs\src\SlpSysVars.pas',
   SlpTokenProgramModel in '..\..\SolLib.Programs\src\Models\SlpTokenProgramModel.pas',
+  SlpTokenSwapModel in '..\..\SolLib.Programs\src\Models\SlpTokenSwapModel.pas',
   SlpTokenProgram in '..\..\SolLib.Programs\src\SlpTokenProgram.pas',
   SlpToken2022Program in '..\..\SolLib.Programs\src\SlpToken2022Program.pas',
+  SlpTokenSwapProgram in '..\..\SolLib.Programs\src\SlpTokenSwapProgram.pas',
   SlpSystemProgram in '..\..\SolLib.Programs\src\SlpSystemProgram.pas',
   SlpAssociatedTokenAccountProgram in '..\..\SolLib.Programs\src\SlpAssociatedTokenAccountProgram.pas',
   SlpMemoProgram in '..\..\SolLib.Programs\src\SlpMemoProgram.pas',
   SlpComputeBudgetProgram in '..\..\SolLib.Programs\src\SlpComputeBudgetProgram.pas',
   SlpSharedMemoryProgram in '..\..\SolLib.Programs\src\SlpSharedMemoryProgram.pas',
   SlpExampleExplorer in '..\src\SlpExampleExplorer.pas',
+  SlpTokenMintHelper in '..\src\SlpTokenMintHelper.pas',
+  SlpExample in '..\src\SlpExample.pas',
   SlpInstructionDecoderExample in '..\src\SlpInstructionDecoderExample.pas',
   SlpGetTokenAccountsByOwnerExample in '..\src\SlpGetTokenAccountsByOwnerExample.pas',
   SlpSolanaKeygenWalletExample in '..\src\SlpSolanaKeygenWalletExample.pas',
@@ -135,8 +139,7 @@ uses
   SlpTransactionExtendedExample in '..\src\SlpTransactionExtendedExample.pas',
   SlpAssociatedTokenAccountsExample in '..\src\SlpAssociatedTokenAccountsExample.pas',
   SlpMultisigExample in '..\src\SlpMultisigExample.pas',
-  SlpExample in '..\src\SlpExample.pas',
-  SlpTokenMintHelper in '..\src\SlpTokenMintHelper.pas';
+  SlpTokenSwapExample in '..\src\SlpTokenSwapExample.pas';
 
 begin
   try
