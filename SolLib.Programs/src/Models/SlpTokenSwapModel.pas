@@ -254,8 +254,6 @@ type
   /// <summary>TokenSwap program state concrete type</summary>
   TTokenSwapAccount = class(TInterfacedObject, ITokenSwapAccount)
   private
-    const TokenSwapDataLen = 324;
-  private
     FVersion: TSwapVersion;
     FIsInitialized: Boolean;
     FNonce: Byte;
@@ -268,6 +266,10 @@ type
     FPoolFeeAccount: IPublicKey;
     FFees: IFees;
     FSwapCurve: ISwapCurve;
+
+    const
+    /// <summary>Token Swap V1 data size.</summary>
+    TokenSwapV1DataSize = 323;
 
     function GetVersion: TSwapVersion;
     function GetIsInitialized: Boolean;
@@ -282,6 +284,8 @@ type
     function GetFees: IFees;
     function GetSwapCurve: ISwapCurve;
   public
+    /// <summary>Token Swap data size.</summary>
+    const TokenSwapDataLength = 1 + TokenSwapV1DataSize; // add one for the version enum
 
     /// <summary>
     /// Deserilize a token swap from the bytes of an account
@@ -528,7 +532,7 @@ class function TTokenSwapAccount.Deserialize(const AData: TBytes): ITokenSwapAcc
 var
   LAcc: TTokenSwapAccount;
 begin
-  if Length(AData) <> TokenSwapDataLen then
+  if Length(AData) <> TokenSwapDataLength then
     Exit(nil);
 
   LAcc := TTokenSwapAccount.Create;

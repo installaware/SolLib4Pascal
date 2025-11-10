@@ -231,6 +231,7 @@ type
   TTokenSwapProgram = class sealed
   private
     const ProgramName = 'Token Swap Program';
+
     class var FProgramIdKey: IPublicKey;
     class var FOwnerKey: IPublicKey;
     class function GetProgramIdKey: IPublicKey; static;
@@ -242,8 +243,8 @@ type
     /// <summary>The owner key required to use as the fee account owner.</summary>
     class property OwnerKey: IPublicKey read GetOwnerKey;
 
-    /// <summary>Token Swap account layout size.</summary>
-    const TokenSwapAccountDataSize = 323;
+    /// <summary>Token Swap account data size.</summary>
+    const TokenSwapAccountDataSize = TTokenSwapAccount.TokenSwapDataLength;
 
     class constructor Create;
     class destructor Destroy;
