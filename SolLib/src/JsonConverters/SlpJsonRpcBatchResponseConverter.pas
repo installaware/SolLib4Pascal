@@ -17,7 +17,7 @@
 
 unit SlpJsonRpcBatchResponseConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -76,7 +76,7 @@ begin
   if AExistingValue.IsEmpty or (AExistingValue.AsObject = nil) then
   begin
     Batch := TJsonRpcBatchResponse.Create;
-    OwnBatch := True;   // we created it → free on exceptions
+    OwnBatch := True;   // we created it -> free on exceptions
   end
   else
   begin

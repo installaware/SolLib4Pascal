@@ -17,7 +17,7 @@
 
 unit SlpMathUtils;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -59,7 +59,7 @@ var
   m: Double;
   e: Integer;
 begin
-  // Decompose X ≈ m * 2^e with m in [0.5, 1). ULP(X) ≈ FEps * 2^e for Double.
+  // Decompose X ˜ m * 2^e with m in [0.5, 1). ULP(X) ˜ FEps * 2^e for Double.
   Frexp(X, m, e);
   Result := Ldexp(1.0, e) * FEps; // FEps scaled by exponent near X
 end;

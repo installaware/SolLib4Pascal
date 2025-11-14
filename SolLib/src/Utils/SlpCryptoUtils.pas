@@ -17,7 +17,7 @@
 
 unit SlpCryptoUtils;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -51,19 +51,19 @@ type
     class function HashData(const AData: TBytes): TBytes; virtual; abstract;
   end;
 
-  /// <summary>SHA-256 hashing (bytes → bytes), static-style.</summary>
+  /// <summary>SHA-256 hashing (bytes -> bytes), static-style.</summary>
   TSHA256 = class(THashAlgorithm)
   public
     class function HashData(const AData: TBytes): TBytes; override;
   end;
 
-  /// <summary>SHA-512 hashing (bytes → bytes), static-style.</summary>
+  /// <summary>SHA-512 hashing (bytes -> bytes), static-style.</summary>
   TSHA512 = class(THashAlgorithm)
   public
     class function HashData(const AData: TBytes): TBytes; override;
   end;
 
-  /// <summary>KECCAK-256 hashing (bytes → bytes), static-style.</summary>
+  /// <summary>KECCAK-256 hashing (bytes -> bytes), static-style.</summary>
   TKECCAK256 = class(THashAlgorithm)
   public
     class function HashData(const AData: TBytes): TBytes; override;
@@ -72,17 +72,17 @@ type
   {-------------------- HMAC --------------------}
   TMacAlgorithm = class abstract
   public
-    /// <summary>Compute MAC for the given key/data (bytes → bytes).</summary>
+    /// <summary>Compute MAC for the given key/data (bytes -> bytes).</summary>
     class function Compute(const AKey, AData: TBytes): TBytes; virtual; abstract;
   end;
 
-  /// <summary>HMAC over SHA-256 (bytes → bytes), static-style.</summary>
+  /// <summary>HMAC over SHA-256 (bytes -> bytes), static-style.</summary>
   THmacSHA256 = class(TMacAlgorithm)
   public
     class function Compute(const AKey, AData: TBytes): TBytes; override;
   end;
 
-  /// <summary>HMAC over SHA-512 (bytes → bytes), static-style.</summary>
+  /// <summary>HMAC over SHA-512 (bytes -> bytes), static-style.</summary>
   THmacSHA512 = class(TMacAlgorithm)
   public
     class function Compute(const AKey, AData: TBytes): TBytes; override;
@@ -91,20 +91,20 @@ type
   {-------------------- KDF: PBKDF2 --------------------}
   TPbkdf2Algorithm = class abstract
   public
-    /// <param name="Iterations">e.g., 100_000+</param>
+    /// <param name="Iterations">e.g., 100000+</param>
     /// <param name="DKLen">Derived key length in BYTES</param>
     class function DeriveKey(const Password, Salt: TBytes;
       Iterations, DKLen: Integer): TBytes; virtual; abstract;
   end;
 
-  /// <summary>PBKDF2-HMAC-SHA256 (bytes → bytes), static-style.</summary>
+  /// <summary>PBKDF2-HMAC-SHA256 (bytes -> bytes), static-style.</summary>
   TPbkdf2SHA256 = class(TPbkdf2Algorithm)
   public
     class function DeriveKey(const Password, Salt: TBytes;
       Iterations, DKLen: Integer): TBytes; override;
   end;
 
-  /// <summary>PBKDF2-HMAC-SHA512 (bytes → bytes), static-style.</summary>
+  /// <summary>PBKDF2-HMAC-SHA512 (bytes -> bytes), static-style.</summary>
   TPbkdf2SHA512 = class(TPbkdf2Algorithm)
   public
     class function DeriveKey(const Password, Salt: TBytes;
@@ -122,7 +122,7 @@ type
       N, R, P, DKLen: Integer): TBytes; virtual; abstract;
   end;
 
-  /// <summary>scrypt (bytes → bytes), static-style.</summary>
+  /// <summary>scrypt (bytes -> bytes), static-style.</summary>
   TScrypt = class(TScryptAlgorithm)
   public
     class function DeriveKey(const Password, Salt: TBytes;

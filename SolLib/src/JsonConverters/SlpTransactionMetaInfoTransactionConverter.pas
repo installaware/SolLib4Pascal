@@ -17,7 +17,7 @@
 
 unit SlpTransactionMetaInfoTransactionConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -86,7 +86,7 @@ begin
     AReader.Read;
 
   case AReader.TokenType of
-    // OBJECT → TTransactionInfo via serializer
+    // OBJECT -> TTransactionInfo via serializer
     TJsonToken.StartObject:
       begin
         ObjJson := AReader.ToJson; // consumes the whole object value
@@ -105,7 +105,7 @@ begin
         end;
       end;
 
-    // ARRAY → accept only array of strings, iterate using ReadNextArrayElement
+    // ARRAY -> accept only array of strings, iterate using ReadNextArrayElement
     TJsonToken.StartArray:
       begin
         Bag := TList<string>.Create;

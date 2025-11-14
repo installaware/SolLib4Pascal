@@ -17,7 +17,7 @@
 
 unit SlpMnemonic;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 
@@ -272,7 +272,7 @@ begin
     idx) then
     Exit(nil);
 
-  // Convert bits → bytes and generate random entropy
+  // Convert bits ? bytes and generate random entropy
   Result := TRandom.RandomBytes(FEntArray[idx] div 8);
 end;
 
@@ -383,5 +383,6 @@ begin
 end;
 
 end.
+
 
 

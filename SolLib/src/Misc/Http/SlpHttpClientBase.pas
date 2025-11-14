@@ -17,7 +17,7 @@
 
 unit SlpHttpClientBase;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 

@@ -17,7 +17,7 @@
 
 unit SlpValueUtils;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -84,11 +84,11 @@ type
     // - Arrays: recurse elements
     // - JSON DOM (TJSONValue): free the root (children go with it)
     // - Generic containers (lists/dictionaries via GetEnumerator):
-    //     * Recurse into yielded items (TPair<K,V> → both Key & Value)
+    //     * Recurse into yielded items (TPair<K,V> -> both Key & Value)
     //     * TObjectList<T>  : free container only if OwnsObjects=True
     //     * TObjectDictionary<K,V> : free container only if (OwnsKeys or OwnsValues)=True
     //     * If enumerator Current type is TValue, after draining we free the container
-    //     * If ownership is unknown and not TValue items → do NOT free container
+    //     * If ownership is unknown and not TValue items -> do NOT free container
     class procedure FreeParameter(var AParam: TValue); static;
     class procedure FreeParameters(var AParams: TList<TValue>); overload; static;
     class procedure FreeParameters(var AParams: TDictionary<string, TValue>); overload; static;
@@ -1073,12 +1073,12 @@ end;
       begin
         if OwnsItems then
         begin
-          Obj.Free;   // owns → free container only
+          Obj.Free;   // owns -> free container only
           Exit;
         end
         else
         begin
-          DrainList(Obj); // non-owning → free items
+          DrainList(Obj); // non-owning -> free items
           Obj.Free;       // then free container
           Exit;
         end;
@@ -1090,14 +1090,14 @@ end;
       begin
         if (not OwnsKeys) and (not OwnsValues) then
         begin
-          // both False → free K & V, then container
+          // both False -> free K & V, then container
           DrainDict(Obj, True, True);
           Obj.Free;
           Exit;
         end
         else
         begin
-          // owns one/both → do NOT free owned sides; drain only non-owned, then container
+          // owns one/both -> do NOT free owned sides; drain only non-owned, then container
           DrainDict(Obj, not OwnsKeys, not OwnsValues);
           Obj.Free;
           Exit;

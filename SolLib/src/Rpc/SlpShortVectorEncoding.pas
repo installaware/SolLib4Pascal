@@ -17,7 +17,7 @@
 
 unit SlpShortVectorEncoding;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

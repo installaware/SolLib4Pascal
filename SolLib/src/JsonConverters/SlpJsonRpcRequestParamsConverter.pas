@@ -17,7 +17,7 @@
 
 unit SlpJsonRpcRequestParamsConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

@@ -17,7 +17,7 @@
 
 unit SlpRpcErrorResponseConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -226,7 +226,7 @@ begin
       end
       else
       begin
-        // No Id property readable � write null to match typical JSON-RPC when absent
+        // No Id property readable -> write null to match typical JSON-RPC when absent
         AWriter.WriteNull;
       end;
     finally

@@ -17,7 +17,7 @@
 
 unit SlpComputeBudgetEstimator;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -45,7 +45,7 @@ type
   /// <list type="number">
   ///   <item><description>Simulate <paramref name="ADraftTransactionBytes"/> to obtain <c>UnitsConsumed</c>.</description></item>
   ///   <item><description>Compute requested limit = <c>ceil(UnitsConsumed * ASafetyMargin)</c>. (Priority fee is charged on the <i>requested</i> limit.)</description></item>
-  ///   <item><description>Fetch recent prioritization fees and pick μ-lamports/CU at <paramref name="AMaxRequiredFeeRatio"/>. If the call succeeds but returns no samples, use <paramref name="ADefaultMicroLamportsPerCu"/>.</description></item>
+  ///   <item><description>Fetch recent prioritization fees and pick µ-lamports/CU at <paramref name="AMaxRequiredFeeRatio"/>. If the call succeeds but returns no samples, use <paramref name="ADefaultMicroLamportsPerCu"/>.</description></item>
   /// </list>
   /// </para>
   /// https://solana.com/docs/core/fees
@@ -111,7 +111,7 @@ type
     /// </param>
     /// <param name="AMaxRequiredFeeRatio">
     /// Fraction in the range <c>[0..1]</c> applied to the strict requirement derived from the endpoint:
-    /// <c>ComputeUnitPrice(μ-lamports/CU) = ceil( max(per-account minimums) * AMaxRequiredFeeRatio )</c>.
+    /// <c>ComputeUnitPrice(µ-lamports/CU) = ceil( max(per-account minimums) * AMaxRequiredFeeRatio )</c>.
     /// Examples:
     /// <list type="bullet">
     /// <item><description><c>1.0</c> -> pay the strict maximum (safest "must-land").</description></item>
@@ -121,7 +121,7 @@ type
     /// If the endpoint returns an empty set or only zeros, the function uses <paramref name="ADefaultMicroLamportsPerCu"/>.
     /// </param>
     /// <param name="ADefaultMicroLamportsPerCu">
-    /// Fallback μ-lamports per compute unit used only when the fee RPC call succeeds but produces
+    /// Fallback µ-lamports per compute unit used only when the fee RPC call succeeds but produces
     /// no usable (non-zero) samples.
     /// </param>
     /// <returns>
@@ -214,7 +214,7 @@ var
   LMaxFee: UInt64;
   I: Integer;
 begin
-  // Assume caller validated AMaxRequiredFeeRatio ∈ [0,1].
+  // Assume caller validated AMaxRequiredFeeRatio between [0,1].
   LMaxFee := 0;
 
   if (AFees <> nil) and (Length(AFees) > 0) then
@@ -223,7 +223,7 @@ begin
         LMaxFee := AFees[I];
 
   if LMaxFee = 0 then
-    // Empty or all zeros ⇒ fallback
+    // Empty or all zeros ? fallback
     Result := ADefaultMicroLamportsPerCu
   else
     // Pay ratio of the strict requirement (max of minimums). Ceil to avoid underbidding.
@@ -333,7 +333,7 @@ begin
   // 3) Fetch recent fees (throws if RPC failed)
   LFees := FetchRecentPrioritizationFees(ARpc, AFeeHintAccounts);
 
-  // 4) Derive μ-lamports/CU from max(mins) * ratio (with fallback)
+  // 4) Derive µ-lamports/CU from max(mins) * ratio (with fallback)
   LComputeUnitPrice := ComputePriceFromAccountMinimums(
     LFees,
     AMaxRequiredFeeRatio,

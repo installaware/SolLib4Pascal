@@ -17,7 +17,7 @@
 
 unit SlpTokenProgram;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -874,7 +874,7 @@ end;
 
 { TokenProgramData }
 
-{=== TokenProgramData � Encoders ===}
+{=== TokenProgramData - Encoders ===}
 
 class function TTokenProgramData.EncodeAmountLayout(AMethod: Byte; const AAmount: UInt64): TBytes;
 begin
@@ -990,7 +990,7 @@ begin
   Result := TBytes.Create(Byte(TTokenProgramInstructions.TValues.SyncNative));
 end;
 
-{=== TokenProgramData � Decoders ===}
+{=== TokenProgramData - Decoders ===}
 
 class procedure TTokenProgramData.DecodeInitializeMintData(const ADecoded: IDecodedInstruction;
   const AData: TBytes; const AKeys: TArray<IPublicKey>; const AKeyIndices: TBytes);

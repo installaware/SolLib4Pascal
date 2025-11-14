@@ -20,7 +20,7 @@
   {$I SolLibFPC.inc} // FPC-specific settings
 {$ELSE}
   {$DEFINE DELPHI}
-  {$I ..\..\SolLib\src\Include\SolLibDelphi.inc} // Delphi-specific settings
+  {$I ../../SolLib/src/Include/SolLibDelphi.inc} // Delphi-specific settings
 {$ENDIF}
 
 {-------------------------- Common Compiler Settings --------------------------}

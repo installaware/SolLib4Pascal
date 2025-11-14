@@ -17,7 +17,7 @@
 
 unit SlpMulticast;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

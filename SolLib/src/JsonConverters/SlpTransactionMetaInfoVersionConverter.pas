@@ -17,7 +17,7 @@
 
 unit SlpTransactionMetaInfoVersionConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

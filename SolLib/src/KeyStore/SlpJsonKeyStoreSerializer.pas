@@ -17,7 +17,7 @@
 
 unit SlpJsonKeyStoreSerializer;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

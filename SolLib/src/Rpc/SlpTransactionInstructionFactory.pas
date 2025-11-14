@@ -17,7 +17,7 @@
 
 unit SlpTransactionInstructionFactory;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

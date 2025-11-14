@@ -17,7 +17,7 @@
 
 unit SlpJsonKit;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -115,7 +115,7 @@ uses
 
   type
   // Local writer that only handles objects/arrays-of-objects so we can decide
-  // to omit a property before the name is written. Everything else → base.
+  // to omit a property before the name is written. Everything else -> base.
   TEnhancedJsonSerializerWriter = class(TObject)
   private
     FSerializer: TJsonSerializer;
@@ -567,7 +567,7 @@ begin
       // Object elements go through our gating, so their properties can be skipped
       TEnhancedJsonSerializer(FSerializer).InternalSerialize(AWriter, Elem)
     else
-      // Primitives/strings/enums/dates/**converter elements** → base engine
+      // Primitives/strings/enums/dates/**converter elements** -> base engine
       TEnhancedJsonSerializer(FSerializer).BaseInternalSerialize(AWriter, Elem);
   end;
   AWriter.WriteEndArray;
@@ -588,7 +588,7 @@ begin
     Exit;
   end;
 
-  // Anything else → base engine (avoids recursion; keeps converters working)
+  // Anything else -> base engine (avoids recursion; keeps converters working)
   TEnhancedJsonSerializer(FSerializer).BaseInternalSerialize(AWriter, AValue);
 end;
 
@@ -613,122 +613,6 @@ begin
 end;
 
 { TEnhancedJsonSerializer }
-
-(*
-type
-  TListSurface = record
-    Inst     : TRttiInstanceType;
-    AddMeth  : TRttiMethod;
-    ElemType : PTypeInfo;
-  end;
-
-function TryGetListSurface(const ATI: PTypeInfo; out Surf: TListSurface): Boolean;
-var
-  TD : PTypeData;
-  Cls: TClass;
-  Ctx: TRttiContext;
-  M  : TRttiMethod;
-  P  : TArray<TRttiParameter>;
-  Prop: TRttiProperty;
-begin
-  Result := False;
-  FillChar(Surf, SizeOf(Surf), 0);
-  if (ATI = nil) or (ATI^.Kind <> tkClass) then Exit;
-
-  TD := GetTypeData(ATI);
-  if (TD = nil) or (TD^.ClassType = nil) then Exit;
-  Cls := TD^.ClassType;
-
-  Surf.Inst := Ctx.GetType(Cls) as TRttiInstanceType;
-  if Surf.Inst = nil then Exit;
-
-  // Must expose Count: Integer and Clear
-  Prop := Surf.Inst.GetProperty('Count');
-  if (Prop = nil) or (Prop.PropertyType = nil) or (Prop.PropertyType.TypeKind <> tkInteger) then Exit;
-  if Surf.Inst.GetMethod('Clear') = nil then Exit;
-
-  // Must expose Add(T) -> gives element type
-  for M in Surf.Inst.GetMethods do
-    if (M.MethodKind = mkProcedure) and (M.Name = 'Add') then
-    begin
-      P := M.GetParameters;
-      if (Length(P) = 1) and Assigned(P[0].ParamType) then
-      begin
-        Surf.AddMeth  := M;
-        Surf.ElemType := P[0].ParamType.Handle;
-        Break;
-      end;
-    end;
-
-  Result := (Surf.AddMeth <> nil) and (Surf.ElemType <> nil);
-end;
-
-function CreateClassInstance(const ATI: PTypeInfo): TValue;
-var
-  TD : PTypeData;
-  Cls: TClass;
-begin
-  Result := TValue.Empty;
-  if (ATI = nil) or (ATI^.Kind <> tkClass) then Exit;
-  TD := GetTypeData(ATI);
-  if (TD = nil) or (TD^.ClassType = nil) then Exit;
-  Cls := TD^.ClassType;
-  Result := TValue.From<TObject>(Cls.Create); // default ctor; TObjectList<T> defaults OwnsObjects=True
-end;
-
-function TEnhancedJsonSerializer.InternalDeserialize(
-  const AReader: TJsonReader; ATypeInf: PTypeInfo): TValue;
-var
-  Surf : TListSurface;
-  ListV: TValue;
-  Item : TValue;
-  Ctx  : TRttiContext;
-  InstT: TRttiType;
-begin
-  // If we’re on a property name (e.g., "result"), DO NOT advance – let base handle it.
-  if AReader.TokenType = TJsonToken.PropertyName then
-    Exit(inherited InternalDeserialize(AReader, ATypeInf));
-
-  // Intercept ONLY when the current token IS the array value
-  if (AReader.TokenType = TJsonToken.StartArray) and TryGetListSurface(ATypeInf, Surf) then
-  begin
-    // Create list instance and clear (harmless on new)
-    ListV := CreateClassInstance(ATypeInf);
-    if ListV.IsEmpty then
-      Exit(inherited InternalDeserialize(AReader, ATypeInf));
-
-    InstT := Ctx.GetType(ListV.TypeInfo);
-    InstT.GetMethod('Clear').Invoke(ListV, []);
-
-    // Move once into the array payload
-    if not AReader.Read then
-      Exit(ListV); // empty []
-
-    // Loop: base consumes one element starting at current token
-    while AReader.TokenType <> TJsonToken.EndArray do
-    begin
-      Item := inherited InternalDeserialize(AReader, Surf.ElemType);
-      Surf.AddMeth.Invoke(ListV, [Item]);
-
-      // Advance to next element or EndArray (exactly once per iteration)
-      if not AReader.Read then Break;
-    end;
-
-    Exit(ListV);
-  end;
-
-  // Everything else (object roots, non-array values, primitives, etc.)
-  Result := inherited InternalDeserialize(AReader, ATypeInf);
-end;
-
-
- function TEnhancedJsonSerializer.BaseInternalDeserialize(
-  const AReader: TJsonReader; ATypeInf: PTypeInfo): TValue;
-begin
-  Result := inherited InternalDeserialize(AReader, ATypeInf);
-end;  *)
-
-////////
 
 procedure TEnhancedJsonSerializer.BaseInternalSerialize(
   const AWriter: TJsonWriter; const AValue: TValue);

@@ -17,7 +17,7 @@
 
 unit SlpTokenListItemExtensionsConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

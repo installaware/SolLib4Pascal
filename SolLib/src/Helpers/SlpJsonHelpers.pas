@@ -17,7 +17,7 @@
 
 unit SlpJsonHelpers;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -43,7 +43,7 @@ type
     function IsKindOfClass(AClass: TClass): Boolean; inline;
 
     /// Convert a RTL JSON DOM node into a TValue we store in Result.
-    /// Primitives → native TValue; objects/arrays → cloned DOM as TObject.
+    /// Primitives -> native TValue; objects/arrays -> cloned DOM as TObject.
     function ToTValue(): TValue;
   end;
 
@@ -409,7 +409,7 @@ procedure TJsonWriterHelper.WriteJsonValue(const JV: TJSONValue);
     else if TryStrToFloat(S, F, FS) then
       Self.WriteValue(F)
     else
-      // Extremely large integers that don't fit → safest fallback as string
+      // Extremely large integers that don't fit -> safest fallback as string
       Self.WriteValue(S);
   end;
 

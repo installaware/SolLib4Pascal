@@ -17,7 +17,7 @@
 
 unit SlpStringTransformer;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -99,7 +99,7 @@ end;
 
 class function TStringTransformer.Compose(const A, B: TStringTransform): TStringTransform;
 begin
-  // (A ∘ B)(S) = B(A(S)) — apply A first, then B
+  // (A ° B)(S) = B(A(S)) — apply A first, then B
   Result :=
     function(const S: string): string
     begin
@@ -111,7 +111,7 @@ class function TStringTransformer.ComposeMany(const Steps: array of TStringTrans
 var
   I: Integer;
 begin
-  // Left-to-right: (((Step0 ∘ Step1) ∘ Step2) ...)
+  // Left-to-right: (((Step0 ° Step1) ° Step2) ...)
   Result := Identity();
   for I := Low(Steps) to High(Steps) do
     if Assigned(Steps[I]) then
@@ -202,7 +202,7 @@ begin
             Inc(i, runLen);
             Continue;
           end;
-          // runLen = 1 → just fall through and copy as-is
+          // runLen = 1 -> just fall through and copy as-is
         end;
 
         Result := Result + S[i];

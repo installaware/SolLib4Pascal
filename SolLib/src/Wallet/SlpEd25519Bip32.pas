@@ -17,7 +17,7 @@
 
 unit SlpEd25519Bip32;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -42,7 +42,7 @@ type
 type
   /// <summary>An implementation of Ed25519-based BIP32 (SLIP-0010) hardened-only derivation.</summary>
   /// <remarks>
-  /// Master: I = HMAC-SHA512(key="ed25519 seed", data=seed) → IL (Key), IR (ChainCode).<br/>
+  /// Master: I = HMAC-SHA512(key="ed25519 seed", data=seed) -> IL (Key), IR (ChainCode).<br/>
   /// Child (hardened): I = HMAC-SHA512(key=ChainCode, data=0x00 || Key || ser32(index|0x80000000)).<br/>
   /// The returned <c>Key</c> is IL (32 bytes) and must be passed to an Ed25519 key generator to obtain the actual keypair.
   /// </remarks>

@@ -17,7 +17,7 @@
 
 unit SlpIOUtils;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -150,7 +150,7 @@ begin
   if APath = '' then
     Exit('');
 
-  // Use ExpandFileName for relative→absolute conversion
+  // Use ExpandFileName for relative -> absolute conversion
   if ExtractFileDrive(APath) <> '' then
     Result := ExpandFileName(APath)
   else

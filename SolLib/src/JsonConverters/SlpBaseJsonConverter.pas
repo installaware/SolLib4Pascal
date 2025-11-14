@@ -17,7 +17,7 @@
 
 unit SlpBaseJsonConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -215,7 +215,7 @@ begin
          Exit;
        end;
 
-        // Any other object (DTO, record-holder, etc.) → hand off to serializer
+        // Any other object (DTO, record-holder, etc.) -> hand off to serializer
         S.Serialize(W, Obj);
       end;
   else

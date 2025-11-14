@@ -17,7 +17,7 @@
 
 unit SlpWebSocketApiClient;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 

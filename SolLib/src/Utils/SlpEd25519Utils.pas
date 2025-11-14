@@ -17,7 +17,7 @@
 
 unit SlpEd25519Utils;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -43,7 +43,7 @@ type
   end;
 
   {
-    Ed25519 � libsodium-format utilities (generate, sign, verify).
+    Ed25519 -> libsodium-format utilities (generate, sign, verify).
 
     - Keypair format (libsodium-style):
     * SecretKey (64 bytes) = Seed(32) || PublicKey(32)

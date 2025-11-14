@@ -17,7 +17,7 @@
 
 unit SlpJsonStringEnumConverter;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -214,7 +214,7 @@ begin
               Exit(Assigned(Transform));
             end;
 
-            // Neither → fall through (no transform)
+            // Neither -> fall through (no transform)
           end;
     finally
       Ctx.Free;

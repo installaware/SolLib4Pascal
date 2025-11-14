@@ -17,7 +17,7 @@
 
 unit SlpWallet;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 

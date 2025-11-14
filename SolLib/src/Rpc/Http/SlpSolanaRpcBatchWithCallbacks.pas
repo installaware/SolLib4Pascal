@@ -17,7 +17,7 @@
 
 unit SlpSolanaRpcBatchWithCallbacks;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 

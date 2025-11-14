@@ -17,7 +17,7 @@
 
 unit SlpTokenWallet;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -839,7 +839,7 @@ begin
   // Ensure target ATA
   LTargetAta := LDestWallet.JitCreateAssociatedTokenAccount(LTxB, ASource.TokenMint, AFeePayer);
 
-  // Amount → raw
+  // Amount -> raw
   LTokenDef := FMintResolver.Resolve(ASource.TokenMint);
   LQtyRaw := LTokenDef.ConvertDoubleToUInt64(AAmount);
 

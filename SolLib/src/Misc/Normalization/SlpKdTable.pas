@@ -17,7 +17,7 @@
 
 unit SlpKdTable;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 {$R '../../Resources/Normalization.res'}
 
 interface
@@ -175,3 +175,4 @@ begin
 end;
 
 end.
+

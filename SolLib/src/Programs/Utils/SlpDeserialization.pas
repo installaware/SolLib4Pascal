@@ -17,7 +17,7 @@
 
 unit SlpDeserialization;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 
@@ -50,10 +50,10 @@ type
     class procedure CheckBounds(const AData: TBytes; AOffset, ANeedLen: Integer); static;
     /// <summary>
     ///   Safely constructs a signed <see cref="TBigInteger" /> from a big-endian
-    ///   two�s-complement byte array.
+    ///   two's-complement byte array.
     /// </summary>
     /// <param name="ABytes">
-    ///   The big-endian byte array representing the integer in two�s-complement form.
+    ///   The big-endian byte array representing the integer in two's-complement form.
     /// </param>
     /// <returns>
     ///   A correctly signed <see cref="TBigInteger" />.
@@ -62,9 +62,9 @@ type
     ///   When a byte array begins with <c>$FF</c> and contains certain bit patterns,
     ///   naive signed conversion routines can misinterpret the sign or read past
     ///   valid bounds. This implementation avoids those issues by computing the
-    ///   two�s-complement negation manually:
+    ///   two's-complement negation manually:
     ///   it inverts all bits, adds one to form the magnitude, and then negates
-    ///   the resulting value. This guarantees that all valid two�s-complement
+    ///   the resulting value. This guarantees that all valid two's-complement
     ///   sequences are interpreted correctly and safely.
     /// </remarks>
     class function CreateSignedBigIntegerSafe(const ABytes: TBytes): TBigInteger; static;
@@ -224,7 +224,7 @@ begin
   if not IsNegative then
     Exit(TBigInteger.Create(1, LCopy));
 
-  // Negative: perform manual two�s-complement conversion
+  // Negative: perform manual two's-complement conversion
   for J := 0 to High(LCopy) do
     LCopy[J] := not LCopy[J];
 

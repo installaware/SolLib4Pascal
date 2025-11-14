@@ -17,7 +17,7 @@
 
 unit SlpComputeBudgetProgram;
 
-{$I ..\Include\SolLib.inc}
+{$I ../Include/SolLib.inc}
 
 interface
 
@@ -186,7 +186,7 @@ type
     class function SetComputeUnitLimit(const AUnits: UInt64): ITransactionInstruction; static;
 
     /// <summary>
-    /// Set a compute unit price in �micro-lamports� to pay a higher transaction fee for higher transaction prioritization.
+    /// Set a compute unit price in `micro-lamports` to pay a higher transaction fee for higher transaction prioritization.
     /// </summary>
     /// <param name="AMicroLamports">The compute unit price.</param>
     /// <returns>The transaction instruction.</returns>

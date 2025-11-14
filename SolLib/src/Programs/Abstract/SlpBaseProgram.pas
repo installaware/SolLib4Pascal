@@ -17,7 +17,7 @@
 
 unit SlpBaseProgram;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 
 interface
 

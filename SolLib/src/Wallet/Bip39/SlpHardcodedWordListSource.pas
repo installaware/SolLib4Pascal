@@ -17,7 +17,7 @@
 
 unit SlpHardcodedWordlistSource;
 
-{$I ..\..\Include\SolLib.inc}
+{$I ../../Include/SolLib.inc}
 {$R '../../Resources/WordLists.res'}
 
 interface
@@ -170,3 +170,4 @@ begin
 end;
 
 end.
+
