@@ -17,7 +17,7 @@
 
 unit SlpToken2022Program;
 
-{$I ..\..\SolLib\src\Include\SolLib.inc}
+{$I ..\Include\SolLib.inc}
 
 interface
 
