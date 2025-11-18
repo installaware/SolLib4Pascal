@@ -24,7 +24,6 @@ interface
 uses
   System.SysUtils,
   System.Classes,
-  System.Generics.Collections,
   fphttpclient,
   opensslsockets,
   httpprotocol,
@@ -59,7 +58,10 @@ implementation
 constructor TFPCHttpClientImpl.Create(const AExisting: TFPHTTPClient);
 begin
   inherited Create;
-  if Assigned(AExisting) then FClient := AExisting else FClient := TFPHTTPClient.Create(nil);
+  if Assigned(AExisting) then
+   FClient := AExisting
+  else
+   FClient := TFPHTTPClient.Create(nil);
 end;
 
 destructor TFPCHttpClientImpl.Destroy;

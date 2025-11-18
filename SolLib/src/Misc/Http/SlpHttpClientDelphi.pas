@@ -24,7 +24,6 @@ interface
 uses
   System.SysUtils,
   System.Classes,
-  System.Generics.Collections,
   System.Net.URLClient,
   System.Net.HttpClient,
   SlpHttpApiResponse,
@@ -56,7 +55,10 @@ implementation
 constructor TDelphiHttpClientImpl.Create(const AExisting: THTTPClient);
 begin
   inherited Create;
-  if Assigned(AExisting) then FClient := AExisting else FClient := THTTPClient.Create;
+  if Assigned(AExisting) then
+   FClient := AExisting
+  else
+   FClient := THTTPClient.Create;
 end;
 
 destructor TDelphiHttpClientImpl.Destroy;
@@ -68,12 +70,12 @@ end;
 class function TDelphiHttpClientImpl.MergeHeaders(
   const Defaults, Extra: THttpApiHeaderParams): TNetHeaders;
 var
-  Tmp: TDictionary<string,string>;
+  Tmp: THttpApiHeaderParams;
   Keys: TArray<string>;
   I: Integer;
   K: string;
 begin
-  Tmp := TDictionary<string,string>.Create(TStringComparerFactory.OrdinalIgnoreCase);
+  Tmp := THttpApiHeaderParams.Create(TStringComparerFactory.OrdinalIgnoreCase);
   try
     if Defaults <> nil then
       for K in Defaults.Keys do

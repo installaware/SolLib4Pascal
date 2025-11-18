@@ -31,7 +31,7 @@ uses
   System.JSON.Writers,
   SlpStringTransformer;
 
-  type
+type
   TJsonIgnoreCondition = (
     Always,            // identical to plain [JsonIgnore]
     Never,             // explicitly un-ignore
@@ -39,7 +39,7 @@ uses
     WhenWritingNull    // omit when value is nil/null
   );
 
-  type
+type
   TJsonNamingPolicy = (CamelCase, PascalCase, SnakeCase, KebabCase);
 
   JsonIgnoreWithConditionAttribute = class(JsonIgnoreAttribute)
@@ -50,12 +50,17 @@ uses
     property Condition: TJsonIgnoreCondition read FCondition;
   end;
 
-  type
-  {----------------------------------------------------------------------------
-    Attribute: callers may pass a *single pre-composed* Provider, a Policy, or BOTH.
-    If BOTH are supplied, we compose as: Provider FIRST, then Policy.
-    If none are supplied, no transform is applied.
-  ----------------------------------------------------------------------------}
+type
+  /// <summary>
+  /// Allows callers to specify how enum values should be transformed during
+  /// JSON serialization. A caller may pass a single pre-composed Provider,
+  /// a Naming Policy, or both.
+  /// </summary>
+  /// <remarks>
+  /// If both a Provider and a Policy are supplied, the transformation is
+  /// composed in this order: the Provider is applied first, followed by
+  /// the Naming Policy. If neither is supplied, no transformation is applied.
+  /// </remarks>
   JsonStringEnumAttribute = class(TCustomAttribute)
   private
     FPolicy: TJsonNamingPolicy;
@@ -74,9 +79,10 @@ uses
     property HasExplicitPolicy: Boolean read FHasExplicitPolicy;
   end;
 
-  type
+type
   IEnhancedContractResolverAccess = interface
     ['{7A6B4E6E-2AB7-4DF7-9B9E-5B2E5B6E9C15}']
+
     function TryGetIgnoreCondition(const AProp: TJsonProperty; out Cond: TJsonIgnoreCondition): Boolean;
     function HasConditionalProps(AType: PTypeInfo): Boolean;
   end;
@@ -95,15 +101,12 @@ uses
     procedure MarkTypeHasConditional(const ARttiMember: TRttiMember);
     procedure ApplyJsonIgnoreConditionAttribute(const AProperty: TJsonProperty; const ARttiMember: TRttiMember);
     procedure ApplyEnumStringConverter(const AProperty: TJsonProperty);
-    function  TryGetEnumNamingAttr(const AProperty: TJsonProperty; out Naming: JsonStringEnumAttribute): Boolean;
+    function TryGetEnumNamingAttr(const AProperty: TJsonProperty; out Naming: JsonStringEnumAttribute): Boolean;
 
   protected
     function ResolvePropertyName(const AName: string): string; override;
 
-    procedure SetPropertySettingsFromAttributes(
-      const AProperty: TJsonProperty;
-      const ARttiMember: TRttiMember;
-      AMemberSerialization: TJsonMemberSerialization); override;
+    procedure SetPropertySettingsFromAttributes(const AProperty: TJsonProperty; const ARttiMember: TRttiMember; AMemberSerialization: TJsonMemberSerialization); override;
 
   public
     constructor Create; reintroduce; overload;
@@ -113,9 +116,15 @@ uses
     destructor Destroy; override;
   end;
 
-  type
-  // Local writer that only handles objects/arrays-of-objects so we can decide
-  // to omit a property before the name is written. Everything else -> base.
+type
+  /// <summary>
+  /// Local writer used to serialize objects and arrays of objects, allowing
+  /// conditional omission of properties before their names are written.
+  /// </summary>
+  /// <remarks>
+  /// Only object and array structures are intercepted. All other value types
+  /// are delegated to the base serializer.
+  /// </remarks>
   TEnhancedJsonSerializerWriter = class(TObject)
   private
     FSerializer: TJsonSerializer;
@@ -124,21 +133,26 @@ uses
     function ShouldSkipByCondition(const AContainer: TValue; const AProp: TJsonProperty): Boolean;
 
     procedure WriteObject(const AWriter: TJsonWriter; const Value: TValue; const AContract: TJsonObjectContract);
-    procedure WriteProperty(const AWriter: TJsonWriter; const AContainer: TValue;
-                            const AProperty: TJsonProperty);
+    procedure WriteProperty(const AWriter: TJsonWriter; const AContainer: TValue; const AProperty: TJsonProperty);
     procedure WriteArray(const AWriter: TJsonWriter; const Value: TValue);
     procedure WriteValue(const AWriter: TJsonWriter; const AValue: TValue; const AContract: TJsonContract);
+
   public
     constructor Create(const ASerializer: TJsonSerializer);
     procedure Serialize(const AWriter: TJsonWriter; const AValue: TValue);
   end;
 
-  type
-  // Thin shim over the RTL serializer. It only intercepts when the resolver
-  // reports a type has conditional ignore properties (JsonIgnoreWithCondition(TJsonIgnoreCondition.WhenWritingNull));
-  // otherwise it defers to RTL.
+type
+  /// <summary>
+  /// Thin wrapper around the RTL JSON serializer that intercepts serialization
+  /// only when the resolver identifies properties with conditional ignore rules.
+  /// </summary>
+  /// <remarks>
+  /// Interception occurs when a type includes <c>JsonIgnoreWithCondition</c>
+  /// attributes such as <c>TJsonIgnoreCondition.WhenWritingNull</c>. All other
+  /// cases are passed directly to the underlying RTL serializer.
+  /// </remarks>
   TEnhancedJsonSerializer = class(TJsonSerializer)
-
   protected
     procedure InternalSerialize(const AWriter: TJsonWriter; const AValue: TValue); override;
 
@@ -147,22 +161,45 @@ uses
     procedure BaseInternalSerialize(const AWriter: TJsonWriter; const AValue: TValue);
   end;
 
-  type
-  /// Creates JSON serializers configured to use Public members.
-  /// - Shared: cached singleton (created in class constructor, freed in class destructor)
-  /// - CreateSerializer: make a fresh instance (optionally with a different MemberSerialization)
+type
+  /// <summary>
+  /// Creates JSON serializer instances configured to use public members.
+  /// Provides both a shared cached serializer and factory methods for creating
+  /// new serializer instances.
+  /// </summary>
+  /// <remarks>
+  /// <para>
+  /// <c>Shared</c> returns a cached singleton created in the class constructor
+  /// and freed in the class destructor.
+  /// </para>
+  /// <para>
+  /// <c>CreateSerializer</c> returns a new serializer instance, optionally using
+  /// a custom <c>TJsonMemberSerialization</c> setting.
+  /// </para>
+  /// </remarks>
   TJsonSerializerFactory = class
   strict private
     class var FShared: TJsonSerializer;
+
     class function NewSerializer(const AContractResolver: IJsonContractResolver; const AConverters: TList<TJsonConverter>): TJsonSerializer; static;
   public
     class constructor Create;
     class destructor Destroy;
 
-    /// Returns the cached singleton. Do NOT free the returned instance.
+    /// <summary>
+    /// Returns the cached singleton serializer instance.
+    /// </summary>
+    /// <remarks>
+    /// The caller must not free the returned instance.
+    /// </remarks>
     class function Shared: TJsonSerializer; static;
 
-    /// Fresh serializer (caller owns).
+    /// <summary>
+    /// Creates and returns a new serializer instance.
+    /// </summary>
+    /// <remarks>
+    /// The caller owns the returned instance and is responsible for freeing it.
+    /// </remarks>
     class function CreateSerializer: TJsonSerializer; overload; static;
     class function CreateSerializer(const AContractResolver: IJsonContractResolver; const AConverters: TList<TJsonConverter>): TJsonSerializer; overload; static;
   end;
@@ -389,7 +426,7 @@ function TEnhancedJsonSerializerWriter.ShouldSkipByCondition(
   function IsDefaultOf(const V: TValue; AType: PTypeInfo): Boolean;
   begin
     case AType^.Kind of
-      // Ordinals: Int, UInt32, Int64, enums, Char/WChar, Boolean (AsOrdinal=0 covers them)
+      // Ordinals: Int, UInt32, Int64, enums, Char/WChar, Boolean (AsOrdinal = 0 covers them)
       tkInteger, tkInt64, tkChar, tkWChar, tkEnumeration:
         Result := (not V.IsEmpty) and (V.AsOrdinal = 0);
 
